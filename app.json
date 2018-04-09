@@ -1,0 +1,18 @@
+{
+  "name": "fichacadastral",
+  "description": "Website to manage registration of companies in our database.",
+  "scripts": {
+  },
+  "env": {
+  },
+  "formation": {
+  },
+  "addons": [
+
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}
