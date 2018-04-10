@@ -1,8 +1,8 @@
 const express = require('express');
 const fileUpload = require('express-fileupload');
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
 
-const dotenv = require('dotenv');
+// const dotenv = require('dotenv');
 
 const path = require('path');
 const PORT = process.env.PORT || 5000;

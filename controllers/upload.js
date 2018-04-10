@@ -4,10 +4,10 @@ const decoder = new StringDecoder('utf8');
 // const Cnpj = require('../models/Cnpj');
 const fs = require('fs');
 const path = require('path');
-const CNPJ = require("cpf_cnpj").CNPJ;
-const Excel = require('exceljs');
-const request = require('request') // https://www.npmjs.com/package/request
-    , async = require('async'); // https://www.npmjs.com/package/asyn
+// const CNPJ = require("cpf_cnpj").CNPJ;
+// const Excel = require('exceljs');
+// const request = require('request') // https://www.npmjs.com/package/request
+    // , async = require('async'); // https://www.npmjs.com/package/asyn
 
 // var wago = JSON.parse(fs.readFileSync('test.json', 'utf8'));
 
@@ -22,34 +22,33 @@ exports.index = (req, res) => {
 };
 
 
-var test = 0;
-/**
- * GET /
- * upload page.
- */
-exports.test = (req, res) => {
+// /**
+//  * GET /
+//  * upload page.
+//  */
+// exports.test = (req, res) => {
 
-	test++;
-	if (test == 5){
-		test = 0
- 		res.send(wago);
-	} else {
- 		res.send("Too many requests, please try again later.");		
-	}
-	console.info(test);
+// 	test++;
+// 	if (test == 5){
+// 		test = 0
+//  		res.send(wago);
+// 	} else {
+//  		res.send("Too many requests, please try again later.");		
+// 	}
+// 	console.info(test);
 			
-};
+// };
 
 
-/**
- * GET /
- * file page.
- */
-exports.file = (req, res) => {
- 	let uuid = req.params.uuid; 	
- 	var file = path.resolve(__dirname, '../files/' + uuid + '.xlsx')
-    res.download(file); // Set disposition and send it.
-};
+// /**
+//  * GET /
+//  * file page.
+//  */
+// exports.file = (req, res) => {
+//  	let uuid = req.params.uuid; 	
+//  	var file = path.resolve(__dirname, '../files/' + uuid + '.xlsx')
+//     res.download(file); // Set disposition and send it.
+// };
 
 
 /**
