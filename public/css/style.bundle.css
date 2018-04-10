@@ -23703,13 +23703,14 @@ body.m-portlet--fullscreen {
       display: table-cell;
       vertical-align: middle; }
       .m-wizard.m-wizard--1 .m-wizard__head .m-wizard__nav .m-wizard__steps .m-wizard__step .m-wizard__step-info {
-        display: table; }
+        display: table;
+        margin-left: 40%; }
         .m-wizard.m-wizard--1 .m-wizard__head .m-wizard__nav .m-wizard__steps .m-wizard__step .m-wizard__step-info .m-wizard__step-number {
           display: table-cell;
           vertical-align: middle;
           text-decoration: none;
           outline: none !important; }
-          .m-wizard.m-wizard--1 .m-wizard__head .m-wizard__nav .m-wizard__steps .m-wizard__step .m-wizard__step-info .m-wizard__step-number > span {
+          .m-wizard.m-wizard--1 .m-wizard__head .m-wizard__nav .m-wizard__steps .m-wizard__step .m-wizard__step-info .m-wizard__step-number > span {            
             width: 4rem;
             height: 4rem;
             -webkit-border-radius: 100%;
