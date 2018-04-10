@@ -1,0 +1,159 @@
+body  {
+  background: #353535;
+}
+.jumbotron {
+  font-family: 'Lato', sans-serif;
+  background: #353535;
+  color: #FFF;
+  padding-bottom: 80px; }
+  .jumbotron .btn-primary {
+    background: #845ac7;
+    border-color: #845ac7; }
+    .jumbotron .btn-primary:hover {
+      background: #7646c1; }
+    p {
+    color: #d9ccee;
+    max-width: 75%;
+    margin: 1em auto 2em; }
+
+   .lang-logo {
+    display: block;
+    background: #B01302;
+    border-radius: 50%;
+    overflow: hidden;
+    width: 300px;
+    height: 300px;
+    margin: auto;
+    border: 2px solid white;
+    margin-bottom: 10%; }
+    .lang-logo img {
+      max-width: 100%; }
+
+.error {
+  font-size: 20em;
+}      
+
+
+
+/*.custom-file-control:before{
+  content: "Browse";
+}
+.custom-file-control:after{
+  content: "Add files..";
+}
+
+*/
+body {
+  font-family: 'Lato', sans-serif;
+  background: #353535;
+  color: #FFF;
+}
+h1 {
+  color: #353535;
+}
+footer {
+  margin-bottom: 0 !important;
+  margin-top: 80px;
+}
+footer p {
+  margin: 0;
+  padding: 0;
+}
+
+
+.text-holder{
+  color:#aaaaaa;
+  text-align:center;
+  padding-top:40px;
+}
+.button-holder{
+  padding-top:100px;
+}
+
+.custom-file-input{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+/*  width:100px;
+  height:40px;*/
+  background-color:#111111;
+  border:1px solid #FFFFFF;
+  border-radius:1px;
+  color:#FFFFFF;
+  font-size:17px;
+  cursor:pointer !important;
+  outline:none;
+
+}
+
+.submit{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width:100px;
+  height:40px;
+  background-color:#111111;
+  border:1px solid #FFFFFF;
+  border-radius:1px;
+  color:#FFFFFF;
+  font-size:17px;
+  cursor:pointer !important;
+  outline:none;
+}
+
+.submit:hover{
+  background-color:#222222;
+}
+.loading{
+  font-size:0;
+  width:30px;
+  height:30px;
+  margin-top:5px;
+  border-radius:15px;
+  padding:0;
+  border:3px solid #FFFFFF;
+  border-bottom:3px solid rgba(255,255,255,0.0);
+  border-left:3px solid rgba(255,255,255,0.0);
+  background-color:transparent !important;
+  animation-name: rotateAnimation;
+  -webkit-animation-name: wk-rotateAnimation;
+  animation-duration: 1s;
+  -webkit-animation-duration: 1s;
+  animation-delay: 0.2s;
+  -webkit-animation-delay: 0.2s;
+  animation-iteration-count: infinite;
+  -webkit-animation-iteration-count: infinite;
+}
+
+@keyframes rotateAnimation {
+    0%   {transform: rotate(0deg);}
+    100% {transform: rotate(360deg);}
+}
+@-webkit-keyframes wk-rotateAnimation {
+    0%   {-webkit-transform: rotate(0deg);}
+    100% {-webkit-transform: rotate(360deg);}
+}
+
+.fa{
+  color:#ffffff;
+  font-size:18px !important;
+  position:absolute;
+  left:50%;
+  top:50%;
+  margin-left:-9px;
+  margin-top:-9px;
+  -webkit-transform:scaleX(0) !important;
+  transform:scaleX(0) !important;
+}
+
+.finish{
+  -webkit-transform:scaleX(1) !important;
+  transform:scaleX(1) !important;
+}
+.hide-loading{
+  opacity:0;
+  -webkit-transform: rotate(0deg) !important;
+  transform: rotate(0deg) !important;
+  -webkit-transform:scale(0) !important;
+  transform:scale(0) !important;
+}

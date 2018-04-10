@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% include ../partials/header.ejs %>
+</head>
+
+<body>
+
+<body class="m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default"  >
+    <!-- begin:: Page -->
+    <div class="m-grid m-grid--hor m-grid--root m-page">
+         
+    <!-- begin::Body -->
+      <div class="m-grid__item m-grid__item--fluid m-grid m-grid--ver-desktop m-grid--desktop m-body">
+        <!-- BEGIN: Left Aside -->
+        <!-- END: Left Aside -->
+        <div class="m-grid__item m-grid__item--fluid m-wrapper">
+          <!-- BEGIN: Subheader -->
+          <div class="m-subheader ">
+            <div class="d-flex align-items-center">
+              <div class="mr-auto">
+                <div class="m-stack__item m-stack__item--middle m-brand__logo">
+                  <a href="../../../index.html" class="m-brand__logo-wrapper">
+                    <img alt="" src="/logo.png" width="200px" length="80px" />
+                  </a>
+                </div>               
+              </div>
+            </div>
+          </div>
+          <!-- END: Subheader -->
+          <div class="m-content">
+            <div class="row">
+              <div class="col-xl-12">
+                <!--Begin::Main Portlet-->
+                <div class="m-portlet">
+                  <!--begin: Portlet Head-->
+                  <div class="m-portlet__head">
+                    <div class="m-portlet__head-caption">
+                      <div class="m-portlet__head-title">
+                        <h3 class="m-portlet__head-text">
+                          Ficha Cadastral
+                          <small>
+                            seu cadastro conosco
+                          </small>
+                        </h3>
+                      </div>
+                    </div>
+                    <div class="m-portlet__head-tools">
+                      <ul class="m-portlet__nav">
+                        <li class="m-portlet__nav-item">
+                          <a href="mailto:adm.br@wago.com" data-toggle="m-tooltip" class="m-portlet__nav-link m-portlet__nav-link--icon" data-direction="left" data-width="auto" title="Nos contate, caso precise de ajuda!">
+                            <i class="flaticon-info m--icon-font-size-lg3"></i>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <!--end: Portlet Head-->
+      <!--begin: Form Wizard-->
+                  <div class="m-wizard m-wizard--1 m-wizard--success" id="m_wizard">
+                    <!--begin: Message container -->
+                    <div class="m-portlet__padding-x">
+                      <!-- Here you can put a message or alert -->
+                    </div>
+                    <!--end: Message container -->
+        <!--begin: Form Wizard Head -->
+                    <div class="m-wizard__head m-portlet__padding-x">
+                      <!--begin: Form Wizard Progress -->
+                      <div class="m-wizard__progress">
+                        <div class="progress">
+                          <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                      </div>
+                      <!--end: Form Wizard Progress -->
+          <!--begin: Form Wizard Nav -->
+                      <div class="m-wizard__nav">
+                        <div class="m-wizard__steps">
+                          <div class="m-wizard__step m-wizard__step--current" data-wizard-target="#m_wizard_form_step_1">
+                            <div class="m-wizard__step-info">
+                              <a href="#" class="m-wizard__step-number">
+                                <span>
+                                  <span>
+                                    1
+                                  </span>
+                                </span>
+                              </a>
+                              <div class="m-wizard__step-line">
+                                <span></span>
+                              </div>
+                              <div class="m-wizard__step-label">
+                                Identificacao e Endereco
+                              </div>
+                            </div>
+                          </div>
+                          <div class="m-wizard__step" data-wizard-target="#m_wizard_form_step_2">
+                            <div class="m-wizard__step-info">
+                              <a href="#" class="m-wizard__step-number">
+                                <span>
+                                  <span>
+                                    2
+                                  </span>
+                                </span>
+                              </a>
+                              <div class="m-wizard__step-line">
+                                <span></span>
+                              </div>
+                              <div class="m-wizard__step-label">
+                                Informacoes Fiscais
+                              </div>
+                            </div>
+                          </div>
+                          <div class="m-wizard__step" data-wizard-target="#m_wizard_form_step_3">
+                            <div class="m-wizard__step-info">
+                              <a href="#" class="m-wizard__step-number">
+                                <span>
+                                  <span>
+                                    3
+                                  </span>
+                                </span>
+                              </a>
+                              <div class="m-wizard__step-line">
+                                <span></span>
+                              </div>
+                              <div class="m-wizard__step-label">
+                                Contato
+                              </div>
+                            </div>
+                          </div>
+                          <div class="m-wizard__step" data-wizard-target="#m_wizard_form_step_4">
+                            <div class="m-wizard__step-info">
+                              <a href="#" class="m-wizard__step-number">
+                                <span>
+                                  <span>
+                                    4
+                                  </span>
+                                </span>
+                              </a>
+                              <div class="m-wizard__step-line">
+                                <span></span>
+                              </div>
+                              <div class="m-wizard__step-label">
+                                Confirmation
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!--end: Form Wizard Nav -->
+                    </div>
+                    <!--end: Form Wizard Head -->
+        <!--begin: Form Wizard Form-->
+                    <div class="m-wizard__form">
+                      <!--
+            1) Use m-form--label-align-left class to alight the form input lables to the right
+            2) Use m-form--state class to highlight input control borders on form validation
+          -->
+                      <form class="m-form m-form--label-align-left- m-form--state-" id="m_form">
+                        <!--begin: Form Body -->
+                        <div class="m-portlet__body">
+                          <!--begin: Form Wizard Step 1-->
+                          <div class="m-wizard__form-step m-wizard__form-step--current" id="m_wizard_form_step_1">
+                            <div class="row">
+                              <div class="col-xl-8 offset-xl-2">
+                                <div class="m-form__section m-form__section--first">
+                                  <div class="m-form__heading">
+                                    <h3 class="m-form__heading-title">
+                                      Identificacao
+                                    </h3>
+                                  </div>
+                                  
+                                  <div class="form-group m-form__group row">
+                                    <div class="col-lg-6">
+                                      <label>
+                                         * CNPJ
+                                      </label>
+                                      <input autocomplete="off" type="text" name="cnpj" id="cnpj" class="form-control"  placeholder=""/>
+                                      <span class="m-form__help">
+                                        Por favor, preencha seu CNPJ
+                                      </span>
+                                    </div>
+                                    <div class="col-lg-6">
+                                      <label class="">
+                                          Inscricao Estadual:
+                                      </label>
+                                      <input autocomplete="off" type="text" name="ie" id="ie" class="form-control m-input"  placeholder="" value="">
+                                      <span class="m-form__help">
+                                        caso possua, inclua a IE de sua empresa
+                                      </span>                                 
+                                    </div>
+                                  </div>
+
+                                  <div class="form-group m-form__group row">
+                                    <div class="col-lg-6">
+                                      <label>
+                                         * Razao Social:
+                                      </label>
+                                      <input type="text" name="nome" class="form-control m-input" id="nome" placeholder="" value="">
+                                      <span class="m-form__help">
+                                        Razao Social de sua empresa
+                                      </span>
+                                    </div>
+                                    <div class="col-lg-6">
+                                      <label class="">
+                                          Fantasia:
+                                      </label>
+                                      <input type="text" name="fantasia" class="form-control m-input" id="fantasia" placeholder="" value="">
+                                      <span class="m-form__help">
+                                        nome fantasia de sua empresa
+                                      </span>                                 
+                                    </div>
+                                  </div>
+
+                                </div>
+                                <div class="m-separator m-separator--dashed m-separator--lg"></div>
+                                <div class="m-form__section">
+                                  <div class="m-form__heading">
+                                    <h3 class="m-form__heading-title">
+                                      Endereço
+                                      <i data-toggle="m-tooltip" data-width="auto" class="m-form__heading-help-icon flaticon-info" title="Local de entrega"></i>
+                                    </h3>
+                                  </div>
+
+                                  <div class="form-group m-form__group row">
+
+                                    <div class="col-lg-3">
+                                      <label>
+                                        * CEP:
+                                      </label>
+                                      <input type="text" name="cep" id="cep" class="form-control m-input" placeholder="" value="">
+                                      <span class="m-form__help">
+                                      
+                                      </span>
+                                    </div>
+                                    <div class="col-lg-7">
+                                      <label>
+                                        * Cidade:
+                                      </label>
+                                      <input type="text" name="municipio" id="municipio" class="form-control m-input" placeholder="">
+                                      <span class="m-form__help">
+                                      </span>
+                                    </div>
+                                    <div class="col-lg-2">
+                                      <label class="">
+                                        * Estado:
+                                      </label>
+                                      <select name="uf" id="uf" class="form-control m-input">
+                                        <option value="">
+                                          Selecione
+                                        </option>
+                                        <option value="AC">
+                                          AC
+                                        </option>
+                                        <option value="AL">
+                                          AL
+                                        </option>
+                                        <option value="AP">
+                                          AP
+                                        </option>
+                                        <option value="AM">
+                                          AM
+                                        </option>
+                                        <option value="BA">
+                                          BA
+                                        </option>
+                                        <option value="CE">
+                                          CE
+                                        </option>
+                                        <option value="DF">
+                                          DF
+                                        </option>
+                                        <option value="ES">
+                                          ES
+                                        </option>
+                                        <option value="GO">
+                                          GO
+                                        </option>
+                                        <option value="MA">
+                                          MA
+                                        </option>
+                                        <option value="MT">
+                                          MT
+                                        </option>
+                                        <option value="MS">
+                                          MS
+                                        </option>
+                                        <option value="MG">
+                                          MG
+                                        </option>
+                                        <option value="PA">
+                                          PA
+                                        </option>
+                                        <option value="PB">
+                                          PB
+                                        </option>
+                                        <option value="PR">
+                                          PR
+                                        </option>
+                                        <option value="PE">
+                                          PE
+                                        </option>
+                                        <option value="PI">
+                                          PI
+                                        </option>
+                                        <option value="RJ">
+                                          RJ
+                                        </option>
+                                        <option value="RN">
+                                          RN
+                                        </option>
+                                        <option value="RS">
+                                          RS
+                                        </option>
+                                        <option value="RO">
+                                          RO
+                                        </option>
+                                        <option value="RR">
+                                          RR
+                                        </option>
+                                        <option value="SC">
+                                          SC
+                                        </option>
+                                        <option value="SP">
+                                          SP
+                                        </option>
+                                        <option value="SE">
+                                          SE
+                                        </option>
+                                        <option value="TO">
+                                          TO
+                                        </option>                                        
+                                      </select>
+                                    </div>
+                                  </div>
+
+                                  <div class="form-group m-form__group row">
+                                    <div class="col-lg-10">
+                                      <label>
+                                         * Logradouro:
+                                      </label>
+                                      <input type="text" name="logradouro" id="logradouro" class="form-control m-input" placeholder="" value="">
+                                      <span class="m-form__help">                                      
+                                      </span>
+                                    </div>
+                                    <div class="col-lg-2">
+                                      <label class="">
+                                        * numero:
+                                      </label>
+                                      <input type="text" name="numero" id="numero" class="form-control m-input" placeholder="" value="">
+                                      <span class="m-form__help">   
+                                      </span>                                   
+                                    </div>
+                                  </div>                                  
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <!--end: Form Wizard Step 1-->
+                          <!--begin: Form Wizard Step 2-->
+                          <div class="m-wizard__form-step" id="m_wizard_form_step_2">
+                            <div class="row">
+                              <div class="col-xl-8 offset-xl-2">
+                                <div class="m-form__section m-form__section--first">
+                                  <div class="m-form__heading">
+                                    <h3 class="m-form__heading-title">
+                                      Informacoes Fiscais
+                                    </h3>
+                                  </div>
+
+                                  <div class="form-group m-form__group row">  
+                                    <div class="col-lg-6 m-form__group-sub">
+                                        <label class="form-control-label">
+                                          * Aplicacao do Material a ser Adquirido:
+                                        </label>
+                                        <div class="m-radio-inline">
+                                          <label class="m-radio m-radio--solid m-radio--brand">
+                                            <input type="radio" name="aplicacao" value="consumo">
+                                            Consumo
+                                            <span></span>
+                                          </label>
+                                          <label class="m-radio m-radio--solid m-radio--brand">
+                                            <input type="radio" name="aplicacao" value="revenda">
+                                            Revenda
+                                            <span></span>
+                                          </label>
+                                          <label class="m-radio m-radio--solid m-radio--brand">
+                                            <input type="radio" name="aplicacao" value="industrializacao">
+                                            Industrializacao
+                                            <span></span>
+                                          </label>
+                                        </div>
+                                        <span class="m-form__help">
+                                          Nos usamos essa informacao para determinacao de impostos!
+                                        </span>
+                                      </div>
+                                    </div>
+
+                                    <div class="form-group m-form__group row">  
+                                      <div class="col-lg-6 m-form__group-sub">
+                                        <label class="form-control-label">
+                                          * Contribuinte de ICMS?
+                                        </label>
+                                        <div class="m-radio-inline">
+                                          <label class="m-radio m-radio--solid m-radio--brand">
+                                            <input type="radio" name="icms" value="1">
+                                            SIM
+                                            <span></span>
+                                          </label>
+                                          <label class="m-radio m-radio--solid m-radio--brand">
+                                            <input type="radio" name="icms" value="0">
+                                             NAO
+                                            <span></span>
+                                          </label>
+                                        </div>
+                                        <span class="m-form__help">
+                                        </span>
+                                      </div>
+                                    </div>
+
+                                  <div class="form-group m-form__group row">
+                                    <div class="col-lg-6">
+                                      <label>
+                                          Inscricao Municial
+                                      </label>
+                                      <input autocomplete="off" type="text" name="im" id="im" class="form-control"  placeholder=""/>
+                                      <span class="m-form__help">
+                                        Obrigatorio na compra de servicos
+                                      </span>
+                                    </div>
+                                    <div class="col-lg-6">
+                                      <label class="">
+                                          Codigo Suframa:
+                                      </label>
+                                      <input autocomplete="off" type="text" name="suframa" id="suframa" class="form-control m-input"  placeholder="" value="">
+                                      <span class="m-form__help">
+                                        caso possua, inclua o cod SUFRAMA de sua empresa
+                                      </span>                                 
+                                    </div>
+                                  </div>
+
+                                  <div class="form-group m-form__group row">                                    
+                                    <div class="col-lg-8">
+                                      <label class="">
+                                          Email para XML:
+                                      </label>
+                                      <input autocomplete="off" type="email" name="email" id="email" class="form-control m-input"  placeholder="" value="">
+                                      <span class="m-form__help">
+                                        vamos enviar o XMLs e DANFEs nesse email!
+                                      </span>                                 
+                                    </div>
+                                  </div>
+
+                                  <div id="regimeEspecial">
+                                    <div class="form-group  m-form__group row" id="m_repeater_1">
+                                      <label  class="col-lg-2 col-form-label">
+                                        Regime Especial?
+                                      </label>
+                                      <div data-repeater-list="" class="col-lg-10">
+                                        <div data-repeater-item class="form-group m-form__group row align-items-center">
+                                          <div class="col-md-3">
+                                            <div class="m-form__group m-form__group--inline">
+                                              <div class="m-form__label">
+                                                <label>
+                                                  Tipo:
+                                                </label>
+                                              </div>
+                                              <div class="m-form__control">
+                                                <input type="text" class="form-control m-input" placeholder="Insira o tipo">
+                                              </div>
+                                            </div>
+                                            <div class="d-md-none m--margin-bottom-10"></div>
+                                          </div>
+                                          <div class="col-md-5">
+                                            <div class="m-form__group m-form__group--inline">
+                                              <div class="m-form__label">
+                                                <label class="m-label m-label--single">
+                                                  Anexo:
+                                                </label>
+                                              </div>
+                                              <div class="custom-file">
+                                                <input type="file" id="anexo" class="custom-file-input" placeholder="Enter contact number">
+                                                <label class="custom-file-label" for="anexo">
+                                                Choose file
+                                              </label>
+                                              </div>
+                                            </div>
+                                            <div class="d-md-none m--margin-bottom-10"></div>
+                                          </div>                                          
+                                          <div class="col-md-4">
+                                            <div data-repeater-delete="" class="btn-sm btn btn-danger m-btn m-btn--icon m-btn--pill">
+                                              <span>
+                                                <i class="la la-trash-o"></i>
+                                                <span>
+                                                  Excluir
+                                                </span>
+                                              </span>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="m-form__group form-group row">
+                                      <label class="col-lg-2 col-form-label"></label>
+                                      <div class="col-lg-4">
+                                        <div data-repeater-create="" class="btn btn btn-sm btn-brand m-btn m-btn--icon m-btn--pill m-btn--wide">
+                                          <span>
+                                            <i class="la la-plus"></i>
+                                            <span>
+                                              Adicionar
+                                            </span>
+                                          </span>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <!--end: Form Wizard Step 2-->
+                          <!--begin: Form Wizard Step 3-->
+                          <div class="m-wizard__form-step" id="m_wizard_form_step_3">
+                            <div class="row">
+                              <div class="col-xl-8 offset-xl-2">
+                                <div class="m-form__section m-form__section--first">
+                                  <div class="m-form__heading">
+                                    <h3 class="m-form__heading-title">
+                                      Contato
+                                    </h3>
+                                  </div>
+
+                                  <div class="form-group m-form__group row">
+                                    <div class="col-lg-6">
+                                      <label>
+                                          * Nome:
+                                      </label>
+                                      <input type="text" name="nomeFinanceiro" id="nomeFinanceiro" class="form-control m-input" placeholder="" value="">
+                                      <span class="m-form__help">
+                                       Insira nome de um contato no financeiro
+                                      </span>
+                                    </div>
+                                    <div class="col-lg-6">
+                                      <label class="">
+                                          Telefone:
+                                      </label>
+                                      <div class="input-group">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text">
+                                            <i class="la la-phone"></i>
+                                          </span>
+                                        </div>
+                                        <input type="text" name="telFinanceiro" class="form-control m-input" placeholder="" value="">
+                                      </div>
+                                      <span class="m-form__help">
+                                        Insira telefone de um contato no financeiro
+                                      </span>                                 
+                                    </div>
+                                  </div>
+
+                                  <div class="form-group m-form__group row">
+                                    <div class="col-lg-8">
+                                      <label>
+                                          * Email:
+                                      </label>
+                                      <input type="email" name="emailFinanceiro" class="form-control m-input" placeholder="" value="">
+                                      <span class="m-form__help">
+                                       Insira email de um contato no financeiro
+                                      </span>
+                                    </div>                                    
+                                  </div>    
+
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <!--end: Form Wizard Step 3-->
+              <!--begin: Form Wizard Step 4-->
+                          <div class="m-wizard__form-step" id="m_wizard_form_step_4">
+                            <div class="row">
+                              <div class="col-xl-8 offset-xl-2">
+                                <!--begin::Section-->
+                                <div class="m-accordion m-accordion--default" id="m_accordion_1" role="tablist">
+                                  <!--begin::Item-->
+                                  <div class="m-accordion__item active">
+                                    <div class="m-accordion__item-head"  role="tab" id="m_accordion_1_item_1_head" data-toggle="collapse" href="#m_accordion_1_item_1_body" aria-expanded="  false">
+                                      <span class="m-accordion__item-icon">
+                                        <i class="fa flaticon-user-ok"></i>
+                                      </span>
+                                      <span class="m-accordion__item-title">
+                                        1. Client Information
+                                      </span>
+                                      <span class="m-accordion__item-mode"></span>
+                                    </div>
+                                    <div class="m-accordion__item-body collapse show" id="m_accordion_1_item_1_body" class=" " role="tabpanel" aria-labelledby="m_accordion_1_item_1_head" data-parent="#m_accordion_1">
+                                      <!--begin::Content-->
+                                      <div class="tab-content  m--padding-30">
+                                        <div class="m-form__section m-form__section--first">
+                                          <div class="m-form__heading">
+                                            <h4 class="m-form__heading-title">
+                                              Account Details
+                                            </h4>
+                                          </div>
+                                          <div class="form-group m-form__group m-form__group--sm row">
+                                            <label class="col-xl-4 col-lg-4 col-form-label">
+                                              URL:
+                                            </label>
+                                            <div class="col-xl-8 col-lg-8">
+                                              <span class="m-form__control-static">
+                                                sinortech.vertoffice.com
+                                              </span>
+                                            </div>
+                                          </div>
+                                          <div class="form-group m-form__group m-form__group--sm row">
+                                            <label class="col-xl-4 col-lg-4 col-form-label">
+                                              Username:
+                                            </label>
+                                            <div class="col-xl-8 col-lg-8">
+                                              <span class="m-form__control-static">
+                                                sinortech.admin
+                                              </span>
+                                            </div>
+                                          </div>
+                                          <div class="form-group m-form__group m-form__group--sm row">
+                                            <label class="col-xl-4 col-lg-4 col-form-label">
+                                              Password:
+                                            </label>
+                                            <div class="col-xl-8 col-lg-8">
+                                              <span class="m-form__control-static">
+                                                *********
+                                              </span>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="m-separator m-separator--dashed m-separator--lg"></div>
+                                        <div class="m-form__section">
+                                          <div class="m-form__heading">
+                                            <h4 class="m-form__heading-title">
+                                              Client Settings
+                                            </h4>
+                                          </div>
+                                          <div class="form-group m-form__group m-form__group--sm row">
+                                            <label class="col-xl-4 col-lg-4 col-form-label">
+                                              User Group:
+                                            </label>
+                                            <div class="col-xl-8 col-lg-8">
+                                              <span class="m-form__control-static">
+                                                Customer
+                                              </span>
+                                            </div>
+                                          </div>
+                                          <div class="form-group m-form__group m-form__group--sm row">
+                                            <label class="col-xl-4 col-lg-4 col-form-label">
+                                              Communications:
+                                            </label>
+                                            <div class="col-xl-8 col-lg-8">
+                                              <span class="m-form__control-static">
+                                                Phone, Email
+                                              </span>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <!--end::Content-->
+                                    </div>
+                                  </div>
+                                  <!--end::Item--> 
+                            <!--begin::Item-->
+                                  <div class="m-accordion__item">
+                                    <div class="m-accordion__item-head collapsed" role="tab" id="m_accordion_1_item_2_head" data-toggle="collapse" href="#m_accordion_1_item_2_body" aria-expanded="    false">
+                                      <span class="m-accordion__item-icon">
+                                        <i class="fa  flaticon-placeholder"></i>
+                                      </span>
+                                      <span class="m-accordion__item-title">
+                                        2. Account Setup
+                                      </span>
+                                      <span class="m-accordion__item-mode"></span>
+                                    </div>
+                                    <div class="m-accordion__item-body collapse" id="m_accordion_1_item_2_body" class=" " role="tabpanel" aria-labelledby="m_accordion_1_item_2_head" data-parent="#m_accordion_1">
+                                      <!--begin::Content-->
+                                      <div class="tab-content  m--padding-30">
+                                        <div class="m-form__section m-form__section--first">
+                                          <div class="m-form__heading">
+                                            <h4 class="m-form__heading-title">
+                                              Account Details
+                                            </h4>
+                                          </div>
+                                          <div class="form-group m-form__group m-form__group--sm row">
+                                            <label class="col-xl-4 col-lg-4 col-form-label">
+                                              URL:
+                                            </label>
+                                            <div class="col-xl-8 col-lg-8">
+                                              <span class="m-form__control-static">
+                                                sinortech.vertoffice.com
+                                              </span>
+                                            </div>
+                                          </div>
+                                          <div class="form-group m-form__group m-form__group--sm row">
+                                            <label class="col-xl-4 col-lg-4 col-form-label">
+                                              Username:
+                                            </label>
+                                            <div class="col-xl-8 col-lg-8">
+                                              <span class="m-form__control-static">
+                                                sinortech.admin
+                                              </span>
+                                            </div>
+                                          </div>
+                                          <div class="form-group m-form__group m-form__group--sm row">
+                                            <label class="col-xl-4 col-lg-4 col-form-label">
+                                              Password:
+                                            </label>
+                                            <div class="col-xl-8 col-lg-8">
+                                              <span class="m-form__control-static">
+                                                *********
+                                              </span>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="m-separator m-separator--dashed m-separator--lg"></div>
+                                        <div class="m-form__section">
+                                          <div class="m-form__heading">
+                                            <h4 class="m-form__heading-title">
+                                              Client Settings
+                                            </h4>
+                                          </div>
+                                          <div class="form-group m-form__group m-form__group--sm row">
+                                            <label class="col-xl-4 col-lg-4 col-form-label">
+                                              User Group:
+                                            </label>
+                                            <div class="col-xl-8 col-lg-8">
+                                              <span class="m-form__control-static">
+                                                Customer
+                                              </span>
+                                            </div>
+                                          </div>
+                                          <div class="form-group m-form__group m-form__group--sm row">
+                                            <label class="col-xl-4 col-lg-4 col-form-label">
+                                              Communications:
+                                            </label>
+                                            <div class="col-xl-8 col-lg-8">
+                                              <span class="m-form__control-static">
+                                                Phone, Email
+                                              </span>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <!--end::Content-->
+                                    </div>
+                                  </div>
+                                  <!--end::Item--> 
+                      <!--begin::Item-->
+                                  <div class="m-accordion__item">
+                                    <div class="m-accordion__item-head collapsed" role="tab" id="m_accordion_1_item_3_head" data-toggle="collapse" href="#m_accordion_1_item_3_body" aria-expanded="    false">
+                                      <span class="m-accordion__item-icon">
+                                        <i class="fa  flaticon-alert-2"></i>
+                                      </span>
+                                      <span class="m-accordion__item-title">
+                                        3. Billing Setup
+                                      </span>
+                                      <span class="m-accordion__item-mode"></span>
+                                    </div>
+                                    <div class="m-accordion__item-body collapse" id="m_accordion_1_item_3_body" class=" " role="tabpanel" aria-labelledby="m_accordion_1_item_3_head" data-parent="#m_accordion_1">
+                                      <div class="tab-content  m--padding-30">
+                                        <div class="m-form__section m-form__section--first">
+                                          <div class="m-form__heading">
+                                            <h4 class="m-form__heading-title">
+                                              Billing Information
+                                            </h4>
+                                          </div>
+                                          <div class="form-group m-form__group m-form__group--sm row">
+                                            <label class="col-xl-4 col-lg-4 col-form-label">
+                                              Cardholder Name:
+                                            </label>
+                                            <div class="col-xl-8 col-lg-8">
+                                              <span class="m-form__control-static">
+                                                Nick Stone
+                                              </span>
+                                            </div>
+                                          </div>
+                                          <div class="form-group m-form__group m-form__group--sm row">
+                                            <label class="col-xl-4 col-lg-4 col-form-label">
+                                              Card Number:
+                                            </label>
+                                            <div class="col-xl-8 col-lg-8">
+                                              <span class="m-form__control-static">
+                                                *************4589
+                                              </span>
+                                            </div>
+                                          </div>
+                                          <div class="form-group m-form__group m-form__group--sm row">
+                                            <label class="col-xl-4 col-lg-4 col-form-label">
+                                              Exp Month:
+                                            </label>
+                                            <div class="col-xl-8 col-lg-8">
+                                              <span class="m-form__control-static">
+                                                10
+                                              </span>
+                                            </div>
+                                          </div>
+                                          <div class="form-group m-form__group m-form__group--sm row">
+                                            <label class="col-xl-4 col-lg-4 col-form-label">
+                                              Exp Year:
+                                            </label>
+                                            <div class="col-xl-8 col-lg-8">
+                                              <span class="m-form__control-static">
+                                                2018
+                                              </span>
+                                            </div>
+                                          </div>
+                                          <div class="form-group m-form__group m-form__group--sm row">
+                                            <label class="col-xl-4 col-lg-4 col-form-label">
+                                              CVV:
+                                            </label>
+                                            <div class="col-xl-8 col-lg-8">
+                                              <span class="m-form__control-static">
+                                                ***
+                                              </span>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="m-separator m-separator--dashed m-separator--lg"></div>
+                                        <div class="m-form__section">
+                                          <div class="m-form__heading">
+                                            <h4 class="m-form__heading-title">
+                                              Billing Address
+                                            </h4>
+                                          </div>
+                                          <div class="form-group m-form__group m-form__group--sm row">
+                                            <label class="col-xl-4 col-lg-4 col-form-label">
+                                              Address Line 1:
+                                            </label>
+                                            <div class="col-xl-8 col-lg-8">
+                                              <span class="m-form__control-static">
+                                                Headquarters 1120 N Street Sacramento 916-654-5266
+                                              </span>
+                                            </div>
+                                          </div>
+                                          <div class="form-group m-form__group m-form__group--sm row">
+                                            <label class="col-xl-4 col-lg-4 col-form-label">
+                                              Address Line 2:
+                                            </label>
+                                            <div class="col-xl-8 col-lg-8">
+                                              <span class="m-form__control-static">
+                                                P.O. Box 942873 Sacramento, CA 94273-0001
+                                              </span>
+                                            </div>
+                                          </div>
+                                          <div class="form-group m-form__group m-form__group--sm row">
+                                            <label class="col-xl-4 col-lg-4 col-form-label">
+                                              City:
+                                            </label>
+                                            <div class="col-xl-8 col-lg-8">
+                                              <span class="m-form__control-static">
+                                                Polo Alto
+                                              </span>
+                                            </div>
+                                          </div>
+                                          <div class="form-group m-form__group m-form__group--sm row">
+                                            <label class="col-xl-4 col-lg-4 col-form-label">
+                                              State:
+                                            </label>
+                                            <div class="col-xl-8 col-lg-8">
+                                              <span class="m-form__control-static">
+                                                California
+                                              </span>
+                                            </div>
+                                          </div>
+                                          <div class="form-group m-form__group m-form__group--sm row">
+                                            <label class="col-xl-4 col-lg-4 col-form-label">
+                                              ZIP:
+                                            </label>
+                                            <div class="col-xl-8 col-lg-8">
+                                              <span class="m-form__control-static">
+                                                37505
+                                              </span>
+                                            </div>
+                                          </div>
+                                          <div class="form-group m-form__group m-form__group--sm row">
+                                            <label class="col-xl-4 col-lg-4 col-form-label">
+                                              Country:
+                                            </label>
+                                            <div class="col-xl-8 col-lg-8">
+                                              <span class="m-form__control-static">
+                                                USA
+                                              </span>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <!--end::Item-->
+                                </div>
+                                <!--end::Section-->
+                                <div class="m-separator m-separator--dashed m-separator--lg"></div>
+                                <div class="form-group m-form__group m-form__group--sm row">
+                                  <div class="col-xl-12">
+                                    <div class="m-checkbox-inline">
+                                      <label class="m-checkbox m-checkbox--solid m-checkbox--brand">
+                                        <input type="checkbox" name="accept" value="1">
+                                        Click here to indicate that you have read and agree to the terms presented in the Terms and Conditions agreement
+                                        <span></span>
+                                      </label>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <!--end: Form Wizard Step 4-->
+                        </div>
+                        <!--end: Form Body -->
+            <!--begin: Form Actions -->
+                        <div class="m-portlet__foot m-portlet__foot--fit m--margin-top-40">
+                          <div class="m-form__actions m-form__actions">
+                            <div class="row">
+                              <div class="col-lg-2"></div>
+                              <div class="col-lg-4 m--align-left">
+                                <a href="#" class="btn btn-secondary m-btn m-btn--custom m-btn--icon" data-wizard-action="prev">
+                                  <span>
+                                    <i class="la la-arrow-left"></i>
+                                    &nbsp;&nbsp;
+                                    <span>
+                                      Back
+                                    </span>
+                                  </span>
+                                </a>
+                              </div>
+                              <div class="col-lg-4 m--align-right">
+                                <a href="#" class="btn btn-primary m-btn m-btn--custom m-btn--icon" data-wizard-action="submit">
+                                  <span>
+                                    <i class="la la-check"></i>
+                                    &nbsp;&nbsp;
+                                    <span>
+                                      Submit
+                                    </span>
+                                  </span>
+                                </a>
+                                <a href="#" class="btn btn-warning m-btn m-btn--custom m-btn--icon" data-wizard-action="next">
+                                  <span>
+                                    <span>
+                                      Salvar & Continuar
+                                    </span>
+                                    &nbsp;&nbsp;
+                                    <i class="la la-arrow-right"></i>
+                                  </span>
+                                </a>
+                              </div>
+                              <div class="col-lg-2"></div>
+                            </div>
+                          </div>
+                        </div>
+                        <!--end: Form Actions -->
+                      </form>
+                    </div>
+                    <!--end: Form Wizard Form-->
+                  </div>
+                  <!--end: Form Wizard-->
+                </div>
+                <!--End::Main Portlet-->
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end:: Body -->
+<!-- begin::Footer
+      <footer class="m-grid__item   m-footer ">
+        <div class="m-container m-container--fluid m-container--full-height m-page__container">
+          <div class="m-stack m-stack--flex-tablet-and-mobile m-stack--ver m-stack--desktop">
+            <div class="m-stack__item m-stack__item--left m-stack__item--middle m-stack__item--last">
+              <span class="m-footer__copyright">
+                2017 &copy; Metronic theme by
+                <a href="https://keenthemes.com" class="m-link">
+                  Keenthemes
+                </a>
+              </span>
+            </div>
+            <div class="m-stack__item m-stack__item--right m-stack__item--middle m-stack__item--first">
+              <ul class="m-footer__nav m-nav m-nav--inline m--pull-right">
+                <li class="m-nav__item">
+                  <a href="#" class="m-nav__link">
+                    <span class="m-nav__link-text">
+                      About
+                    </span>
+                  </a>
+                </li>
+                <li class="m-nav__item">
+                  <a href="#"  class="m-nav__link">
+                    <span class="m-nav__link-text">
+                      Privacy
+                    </span>
+                  </a>
+                </li>
+                <li class="m-nav__item">
+                  <a href="#" class="m-nav__link">
+                    <span class="m-nav__link-text">
+                      T&C
+                    </span>
+                  </a>
+                </li>
+                <li class="m-nav__item">
+                  <a href="#" class="m-nav__link">
+                    <span class="m-nav__link-text">
+                      Purchase
+                    </span>
+                  </a>
+                </li>
+                <li class="m-nav__item m-nav__item">
+                  <a href="#" class="m-nav__link" data-toggle="m-tooltip" title="Support Center" data-placement="left">
+                    <i class="m-nav__link-icon flaticon-info m--icon-font-size-lg3"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </footer>
+      end::Footer -->
+    </div>
+    <!-- end:: Page -->  
+
+<% include ../partials/footer.ejs %>
+
+</body>
+</html>

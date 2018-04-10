@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% include ../partials/header.ejs %>
+</head>
+
+<body>
+
+  <% include ../partials/nav.ejs %>
+
+<div class="jumbotron text-center">
+  <div class="container-fluid">
+    <a href="/">
+      <img src="/kermit.jpg">
+
+    </a>
+    <h1>"Deu ruim!!"</h1>
+    <h1 class="error"><%= error_number %></h1>
+
+    <p><%= error_desc %></p>
+
+  </div>
+</div>
+
+</body>
+</html>
