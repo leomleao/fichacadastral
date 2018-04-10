@@ -175,7 +175,7 @@ var WizardDemo = function () {
 
                 swal({
                     "title": "", 
-                    "text": "There are some errors in your submission. Please correct them.", 
+                    "text": "Algo de errado nao esta certo. Conserte o formulario", 
                     "type": "error",
                     "confirmButtonClass": "btn btn-secondary m-btn m-btn--wide"
                 });
