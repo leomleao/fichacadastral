@@ -6,7 +6,7 @@ const fs = require('fs');
 const path = require('path');
 // const CNPJ = require("cpf_cnpj").CNPJ;
 // const Excel = require('exceljs');
-// const request = require('request') // https://www.npmjs.com/package/request
+const request = require('request'); // https://www.npmjs.com/package/request
     // , async = require('async'); // https://www.npmjs.com/package/asyn
 
 // var wago = JSON.parse(fs.readFileSync('test.json', 'utf8'));
