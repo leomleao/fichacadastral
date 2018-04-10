@@ -5,7 +5,7 @@ const fileUpload = require('express-fileupload');
 // const dotenv = require('dotenv');
 
 const path = require('path');
-const PORT = process.env.PORT || 5000;
+var port = process.env.PORT || 8000
 
 const cnpjController = require('./controllers/cnpj');
 const homeController = require('./controllers/home');
@@ -44,17 +44,13 @@ app.set('view engine', 'ejs');
 
 app.get('/', homeController.index);
 
-app.get('/upload', uploadController.index);
-
-app.get('/test', uploadController.test);
-
-app.get('/result/:uuid', uploadController.file);
 
 app.get('/check/:cnpj', uploadController.check);
 
 
-app.post('/upload', uploadController.upload );
 
 
 
-app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
+app.listen(port, function() {
+    console.log("App is running on port " + port);
+});
