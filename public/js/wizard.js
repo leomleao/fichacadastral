@@ -5,6 +5,8 @@ var WizardDemo = function () {
     var formEl = $('#m_form');
     var validator;
     var wizard;
+    var form;
+    var formData = {};
     
     //== Private functions
     var initWizard = function () {
@@ -38,11 +40,13 @@ var WizardDemo = function () {
             "mask": "99.999-999"
         });
 
-        //== Validation before going to next page
+        // == Validation before going to next page
         wizard.on('beforeNext', function(wizard) {
-            if (validator.form() !== true) {
-                return false;  // don't go to the next step
-            }
+            // if (validator.form() !== true) {
+            //     return false;  // don't go to the next step
+            // }
+            form = formEl.serializeArray();
+            populateDataObj(form, populateRevForm);
         })
 
         //== Change event
@@ -58,102 +62,83 @@ var WizardDemo = function () {
 
             //== Validation rules
             rules: {
-                //=== Client Information(step 1)
-                //== Client details
-                // nome: {
-                //     required: true 
-                // },
-                // fantasia: {
-                //     required: false
-                // },       
-                // phone: {
-                //     required: true,
-                //     phoneUS: true 
-                // },     
+                //=== Identificacao               
+                cnpj: {
+                    required: true,
+                    cnpj: true
+                },
 
-                //== Mailing address
-                // address1: {
-                //     required: true 
-                // },
-                // city: {
-                //     required: true 
-                // },
-                // state: {
-                //     required: true 
-                // },
-                // city: {
-                //     required: true 
-                // },
-                // country: {
-                //     required: true 
-                // },
+                ie: {
+                    required: ""                    
+                },
 
-                //=== Client Information(step 2)
-                //== Account Details
-                // account_url: {
-                //     required: true,
-                //     url: true
-                // },
-                // account_username: {
-                //     required: true,
-                //     minlength: 4
-                // },
-                // account_password: {
-                //     required: true,
-                //     minlength: 6
-                // },                
+                nome: {
+                    required: true 
+                },
 
-                //== Client Settings
-                // account_group: {
-                //      required: true
-                // },                
-                // 'account_communication[]': {
-                //     required: true
-                // },
+                fantasia: {
+                    required: false
+                },
 
-                //=== Client Information(step 3)
-                //== Billing Information
-                // billing_card_name: {
-                //     required: true
-                // },
-                // billing_card_number: {
-                //     required: true,
-                //     creditcard: true
-                // },
-                // billing_card_exp_month: {
-                //     required: true
-                // },
-                // billing_card_exp_year: {
-                //     required: true
-                // },
-                // billing_card_cvv: {
-                //     required: true,
-                //     minlength: 2,
-                //     maxlength: 3
-                // },
+                //=== Endereco         
 
-                //== Billing Address
-                // billing_address_1: {
-                //     required: true
-                // },
-                // billing_address_2: {
-                    
-                // },
-                // billing_city: {
-                //     required: true
-                // },
-                // billing_state: {
-                //     required: true
-                // },
-                // billing_zip: {
-                //     required: true,
-                //     number: true
-                // },
-                // billing_delivery: {
-                //     required: true
-                // },
+                cep: {
+                    required: true
+                },
 
-                //=== Confirmation(step 4)
+                municipio: {
+                    required: true
+                },
+
+                uf: {
+                    required: true
+                },
+
+                logradouro: {
+                    required: true
+                },
+
+                numero: {
+                    required: true
+                },
+
+                //=== Informacoes fiscais         
+
+                aplicacao: {
+                    required: true
+                },
+
+                icms: {
+                    required: true
+                },
+
+                emailXML: {
+                    required: true
+                },
+
+                im: {
+                    required: false                    
+                },
+
+                suframa: {
+                    required: false                    
+                },
+
+
+                //=== Contato Financeiro
+
+                nomeFinanceiro : {
+                    required: true
+                },
+                telFinanceiro : {
+                    required: true
+                },
+                emailFinanceiro : {
+                    required: true
+                },
+
+               
+                //=== Revisao
                 accept: {
                     required: true
                 }
@@ -161,11 +146,8 @@ var WizardDemo = function () {
 
             //== Validation messages
             messages: {
-                'account_communication[]': {
-                    required: 'You must select at least one communication option'
-                },
                 accept: {
-                    required: "You must accept the Terms and Conditions agreement!"
+                    required: "Você deve concordar com nossos termos e condições!"
                 } 
             },
             
@@ -175,7 +157,7 @@ var WizardDemo = function () {
 
                 swal({
                     "title": "", 
-                    "text": "Algo de errado nao esta certo. Conserte o formulario", 
+                    "text": "Formulário não completo. Por favor, preencha todos os campos obrigatórios.", 
                     "type": "error",
                     "confirmButtonClass": "btn btn-secondary m-btn m-btn--wide"
                 });
@@ -207,7 +189,7 @@ var WizardDemo = function () {
 
                         swal({
                             "title": "", 
-                            "text": "The application has been successfully submitted!", 
+                            "text": "Sua ficha cadastral foi enviada com sucesso!", 
                             "type": "success",
                             "confirmButtonClass": "btn btn-secondary m-btn m-btn--wide"
                         });
@@ -217,7 +199,7 @@ var WizardDemo = function () {
         });
     }
 
-    function populateForm (data) {
+    function populateForm (data, callback) {
        $("#nome").val(data.nome);
        $("#fantasia").val(data.fantasia);
        $("#logradouro").val(data.logradouro);
@@ -226,24 +208,105 @@ var WizardDemo = function () {
        $("#uf").val(data.uf);
        $("#cep").val(data.cep);
 
-
+       if (typeof callback === 'function'){
+            callback(data);
+        }
     }
 
-    var initCnpj = function() {
+    function populateRevForm(data) {
+        Object.keys(data).forEach(function(key) {
+            if( key == "icms" && data[key] == 0 ){
+                $( "#rev-" + key ).text("Não contribuinte.");
+            } else if ( key == "icms" && data[key] == 1 ){
+                $( "#rev-" + key ).text("Contribuinte de ICMS.");
+
+            }else if ( $( "#rev-" + key ).length ) { 
+                $( "#rev-" + key ).text(data[key]);             
+            }
+        });
+    }
+
+    function populateDataObj(data, callback = false) {  
+
+        if(isArray(data)){
+            for (var i = form.length - 1; i >= 0; i--) {
+                formData[form[i].name] = form[i].value;
+            }            
+        } else if (typeof data === "object"){
+            Object.keys(data).forEach(function(key) {
+                formData[key] = data[key];
+            });
+        }    
+
+        console.info(typeof callback);
+
+        if (typeof callback === 'function'){
+            callback(formData);
+        }
+
+        
+    }
+
+    function isArray(obj) {
+        return Array.isArray(obj);
+    }
+
+    var initWatch = function() {
+
         var cnpjField = formEl.find('#cnpj');
 
-            cnpjField.on('focusout', function(e) {
+            cnpjField.on('change', function(e) {
                 var url = 'http://www.receitaws.com.br/v1/cnpj/' ;
-
                 console.info(cnpjField.inputmask('unmaskedvalue'));
+
                 $.ajax({
-                url: 'check/' + cnpjField.inputmask('unmaskedvalue'),
-                success: function(result){
-                  populateForm(result); 
-                  console.info(result);
+                    url: 'check/' + cnpjField.inputmask('unmaskedvalue'),
+                    success: function(result){
+                      populateForm(result, populateDataObj); 
+                      console.info(result);
+                    }
+                });
+            });
+
+        var ie           = formEl.find('#ie');
+        var fieldICMS    = formEl.find('input[type=radio][name=icms]');
+        var noICMSField  = formEl.find('input[type=radio][name=icms][value=0]');
+        var yesICMSField = formEl.find('input[type=radio][name=icms][value=1]');
+        var helper       = formEl.find('#helper-icms');
+
+            ie.on('change', function(e) {                
+                if (ie.val() == '') {
+
+                    yesICMSField.prop('checked', false);
+                    noICMSField.prop('checked', true);
+                    fieldICMS.attr('disabled', 'true');
+                    helper.text("Caso seja contribuinte, preencha o campo IE.");
+                    yesICMSField.next().addClass('without-after-element');
+
+
+                } else {
+                    fieldICMS.attr('disabled', false);                                      
+                    helper.text("");
+                    yesICMSField.next().removeClass('without-after-element');
+                    
                 }
-            });              
-        });
+                
+            });
+
+
+
+        var uf           = formEl.find('#uf');
+        var fieldSUFRAMA = formEl.find('#fieldSUFRAMA');
+
+            uf.on('change', function(e) {
+                if (uf.val() == 'AM' || uf.val() == 'RR' || uf.val() == 'AP' || uf.val() == 'AC' || uf.val() == 'RO') {
+                    fieldSUFRAMA.removeAttr('hidden');
+                } else {
+                    fieldSUFRAMA.attr('hidden', 'true');
+                }
+                
+            });
+                
     }
 
     return {
@@ -253,9 +316,9 @@ var WizardDemo = function () {
             formEl = $('#m_form');
 
             initWizard(); 
-            initValidation();
+            // initValidation();
             initSubmit();
-            initCnpj();
+            initWatch();
         }
     };
 }();
