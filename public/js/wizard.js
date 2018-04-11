@@ -10,6 +10,7 @@ var WizardDemo = function () {
     var wizard;
     var form;
     var formData = {};
+    var uuid = $("#uuid").val();
     
     //== Private functions
     var initWizard = function () {
@@ -26,7 +27,7 @@ var WizardDemo = function () {
             }
             $( ".regime-especial" ).slideToggle( "slow", function() {
             // Animation complete.
-          });
+            });
         });
         // file type validation
         // Dropzone.options.mDropzoneThree = {
@@ -49,6 +50,12 @@ var WizardDemo = function () {
             maxFilesize: 3, // MB
             dictCancelUpload: "Cancelar",
             autoProcessQueue: false,
+            parallelUploads: 2,
+            ignoreHiddenFiles: true,
+            acceptedFiles: "image/*,.pdf,.doc,.docx",
+            renameFilename: function (filename) {
+                return uuid + '_' + filename;
+            },
             init: function () {
                 this.on("success", function(file) {
                    dropZone.options.autoProcessQueue = true; 
@@ -139,6 +146,15 @@ var WizardDemo = function () {
                 numero: {
                     required: true
                 },
+
+                bairro: {
+                    required: false
+                },
+
+                complemento: {
+                    required: false
+                },
+
 
                 //=== Informacoes fiscais         
 
@@ -245,6 +261,8 @@ var WizardDemo = function () {
        $("#municipio").val(data.municipio);
        $("#uf").val(data.uf);
        $("#cep").val(data.cep);
+       $("#bairro").val(data.bairro);
+       $("#complemento").val(data.complemento);
 
        if (typeof callback === 'function'){
             callback(data);
@@ -266,6 +284,15 @@ var WizardDemo = function () {
 
             } else if ( key == "icms" && data[key] == 1 ){
                 $( "#rev-" + key ).text("Contribuinte de ICMS.");
+
+            } else if ( key == "aplicacao" && data[key] == 'consumo' ){
+                $( "#rev-" + key ).text("Consumo");
+
+            } else if ( key == "aplicacao" && data[key] == 'revenda' ){
+                $( "#rev-" + key ).text("Revenda");
+
+            } else if ( key == "aplicacao" && data[key] == 'industrializacao' ){
+                $( "#rev-" + key ).text("Industrialização.");
 
             } else if( key == "atividade_principal"){
                 console.info(data[key][0]);
@@ -349,9 +376,14 @@ var WizardDemo = function () {
 
             uf.on('change', function(e) {
                 if (uf.val() == 'AM' || uf.val() == 'RR' || uf.val() == 'AP' || uf.val() == 'AC' || uf.val() == 'RO') {
-                    fieldSUFRAMA.removeAttr('hidden');
+                    // fieldSUFRAMA.removeAttr('hidden');
+                    fieldSUFRAMA.fadeIn( "slow", function() {
+                    // Animation complete.
+                    });
                 } else {
-                    fieldSUFRAMA.attr('hidden', 'true');
+                    fieldSUFRAMA.fadeOut( "slow", function() {
+                    // Animation complete.
+                    });
                 }
                 
             });

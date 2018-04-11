@@ -23749,7 +23749,7 @@ body.m-portlet--fullscreen {
   margin: 3rem auto;
   width: 80%; }
 
-@media (max-width: 1200px) {
+@media (max-width: 576px) {
   .m-wizard.m-wizard--1 .m-wizard__head {
     position: relative;
     width: 100% !important; }

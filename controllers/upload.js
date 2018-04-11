@@ -94,41 +94,25 @@ exports.check = (req, res) => {
  * POST /
  * upload page.
  */
-	exports.upload = (req, res) => {
+exports.upload = (req, res) => {
 	let fullUrl = req.protocol + '://' + req.get('host');
   	if (!req.files)
 		return res.status(400).send('No files were uploaded.');
 
-	let uuid = uuidv4();
-
-	console.info(req.files);
-
-	{
-		return res.status(200).send('Arquivo recebido!');
-	}
-
 	// The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
-	// let cnpjsFile = req.files.cnpjsFile;
+	let uploadedFile = req.files.file;
 
 	// // Use the mv() method to place the file somewhere on your server
-	// let folderDest = path.resolve(__dirname, '../files/' + uuid );
-	
+	let folderDest = path.resolve(__dirname, '../files/' + uploadedFile.name );
 
-	// cnpjsList = decoder.write(req.files.cnpjsFile.data);
-	// cnpjsArray = cnpjsList.split("\n");
 
-	
-	
-	
+	uploadedFile.mv(folderDest, function(err) {
+		if (err) {
+			return res.status(500).send(err);
+		} else {			
+			return res.status(200).send('Arquivo recebido!');
+		}
 
-	// cnpjsFile.mv(folderDest, function(err) {
-	// 	if (err)
+	});
 
-	// 		{
-	// 			return res.status(500).send(err);
-	// 		}
-
-	
-	// fs.unlinkSync(path.resolve(__dirname, '../files/' + uuid))
-	// });
 };
