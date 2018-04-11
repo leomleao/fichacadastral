@@ -47,7 +47,7 @@ app.get('/', homeController.index);
 
 app.get('/check/:cnpj', uploadController.check);
 
-
+app.post('/upload', uploadController.upload );
 
 
 

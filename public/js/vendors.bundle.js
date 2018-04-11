@@ -48223,6 +48223,18 @@ Dropzone.CANCELED = "canceled";
 Dropzone.ERROR = "error";
 Dropzone.SUCCESS = "success";
 
+
+Dropzone.prototype.defaultOptions.dictDefaultMessage = "Insira arquivos aqui para upload";
+Dropzone.prototype.defaultOptions.dictFallbackMessage = "Seu navegador nao suporta funcao arraste e solte";
+Dropzone.prototype.defaultOptions.dictFallbackText = "Por favor use o formulario abaixo para fazer upload de seus arquivos";
+Dropzone.prototype.defaultOptions.dictFileTooBig = "Arquivo muito grande ({{filesize}}MiB). Max: {{maxFilesize}}MiB.";
+Dropzone.prototype.defaultOptions.dictInvalidFileType = "Arquivos nesse formato nao sao aceitos.";
+Dropzone.prototype.defaultOptions.dictResponseError = "Servidor respondeu com cod status {{statusCode}}.";
+Dropzone.prototype.defaultOptions.dictCancelUpload = "Cancelar upload";
+Dropzone.prototype.defaultOptions.dictCancelUploadConfirmation = "Tem certeza que deseja cancelar esse upload?";
+Dropzone.prototype.defaultOptions.dictRemoveFile = "Remover arquivo";
+Dropzone.prototype.defaultOptions.dictMaxFilesExceeded = "Maximo de arquivos atingido.";
+
 /*
 
  Bugfix for iOS 6 and 7

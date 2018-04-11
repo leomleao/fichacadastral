@@ -1,5 +1,8 @@
 //== Class definition
 var WizardDemo = function () {
+
+    Dropzone.autoDiscover = false;
+
     //== Base elements
     var wizardEl = $('#m_wizard');
     var formEl = $('#m_form');
@@ -15,22 +18,52 @@ var WizardDemo = function () {
             startStep: 1
         });
 
-         $('#regimeEspecial').repeater({            
-            initEmpty: true,
-           
-            defaultValues: {
-                'text-input': 'foo'
-            },
-             
-            show: function () {
-                $(this).slideDown();
-            },
+        $( "#regime-especial" ).click(function() {
+            if($( "#status").text() == "SIM!"){
+                $( "#status").text("NAO!");
+            } else {
+                $( "#status").text("SIM!");                
+            }
+            $( ".regime-especial" ).slideToggle( "slow", function() {
+            // Animation complete.
+          });
+        });
+        // file type validation
+        // Dropzone.options.mDropzoneThree = {
+        //   addRemoveLinks: true,
+        //   maxFiles: 10,
+        //   maxFilesize: 5, // MB
+        //   dictCancelUpload: "Cancelar",
+        //   autoProcessQueue: true 
+        // };
 
-            hide: function (deleteElement) {                
-                $(this).slideUp(deleteElement);                 
-            }   
+        var dropZone = new Dropzone(".dropzone", {
+            // init: function() {
+            //     this.on("maxfilesexceeded", function(file) {
+            //         this.removeFile(file);
+            //     }),
+            // },
+            url: "/upload",
+            addRemoveLinks: true,
+            maxFiles: 10,
+            maxFilesize: 3, // MB
+            dictCancelUpload: "Cancelar",
+            autoProcessQueue: false,
+            init: function () {
+                this.on("success", function(file) {
+                   dropZone.options.autoProcessQueue = true; 
+                   addNodeUploadedFile(file.name);
+                });
+            }
+                
         });
 
+        $('#upload').click(function(){           
+          dropZone.processQueue();         
+    
+        });
+
+        
                 // phone number format
         $("#cnpj").inputmask("mask", {
             "mask": "99.999.999/9999-99"
@@ -40,11 +73,16 @@ var WizardDemo = function () {
             "mask": "99.999-999"
         });
 
+        $("#telFinanceiro").inputmask("mask", {
+            mask: ["(99) 9999-9999", "(99) 99999-9999", ],
+            keepStatic: true
+        });
+
         // == Validation before going to next page
         wizard.on('beforeNext', function(wizard) {
-            // if (validator.form() !== true) {
-            //     return false;  // don't go to the next step
-            // }
+            if (validator.form() !== true) {
+                return false;  // don't go to the next step
+            }
             form = formEl.serializeArray();
             populateDataObj(form, populateRevForm);
         })
@@ -147,7 +185,7 @@ var WizardDemo = function () {
             //== Validation messages
             messages: {
                 accept: {
-                    required: "Você deve concordar com nossos termos e condições!"
+                    required: "Por favor, confirme os dados antes de enviar."
                 } 
             },
             
@@ -213,14 +251,27 @@ var WizardDemo = function () {
         }
     }
 
+    function addNodeUploadedFile (filename) {
+        var newLine = $('#regime-especial-file').clone();
+        newLine.removeAttr( "id" );
+
+        newLine.children().text(filename);
+        newLine.show().appendTo($('#regime-especial-file').parent());
+    }
+
     function populateRevForm(data) {
         Object.keys(data).forEach(function(key) {
             if( key == "icms" && data[key] == 0 ){
                 $( "#rev-" + key ).text("Não contribuinte.");
+
             } else if ( key == "icms" && data[key] == 1 ){
                 $( "#rev-" + key ).text("Contribuinte de ICMS.");
 
-            }else if ( $( "#rev-" + key ).length ) { 
+            } else if( key == "atividade_principal"){
+                console.info(data[key][0]);
+                $( "#rev-" + key ).text(data[key][0]['code'] + " - " + data[key][0]['text']);
+
+            } else if ( $( "#rev-" + key ).length ) { 
                 $( "#rev-" + key ).text(data[key]);             
             }
         });
@@ -237,8 +288,6 @@ var WizardDemo = function () {
                 formData[key] = data[key];
             });
         }    
-
-        console.info(typeof callback);
 
         if (typeof callback === 'function'){
             callback(formData);
@@ -316,7 +365,7 @@ var WizardDemo = function () {
             formEl = $('#m_form');
 
             initWizard(); 
-            // initValidation();
+            initValidation();
             initSubmit();
             initWatch();
         }

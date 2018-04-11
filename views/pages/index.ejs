@@ -121,6 +121,7 @@
             2) Use m-form--state class to highlight input control borders on form validation
           -->
                       <form class="m-form m-form--label-align-left- m-form--state-" id="m_form">
+                        <input  type="text" name="uuid" id="uuid" value="<%= uuid %>" hidden/>
                         <!--begin: Form Body -->
                         <div class="m-portlet__body">
                           <!--begin: Form Wizard Step 1-->
@@ -375,6 +376,7 @@
                                           </label>
                                         </div>
                                         <span id="helper-icms" class="m-form__help">
+                                          Caso seja contribuinte, preencha o campo IE.
                                         </span>
                                       </div>
                                     </div>
@@ -386,7 +388,7 @@
                                       </label>
                                       <input  type="text" name="im" id="im" class="form-control"  placeholder=""/>
                                       <span class="m-form__help">
-                                        Obrigatório na compra de serviços
+                                        Obrigatório na compra de serviços <i data-toggle="m-tooltip" data-width="auto" class="m-form__heading-help-icon flaticon-info form-help" title="e!Cockpit ou treinamentos WAGO"></i>
                                       </span>
                                     </div>
                                     <div class="col-lg-6" id="fieldSUFRAMA" hidden>
@@ -412,70 +414,69 @@
                                     </div>
                                   </div>
 
-                                  <div id="regimeEspecial">
-                                    <div class="form-group  m-form__group row" id="m_repeater_1">
-                                      <label  class="col-lg-2 col-form-label">
-                                        Regime Especial?
+                                  <div class="m-separator m-separator--dashed m-separator--lg"></div>
+
+                                    <div class="form-group m-form__group row">
+                                      <label class="col-form-label col-lg-4 col-sm-4">
+                                         Algum regime especial de tributacao?
+                                           <i data-toggle="m-tooltip" data-width="auto" class="m-form__heading-help-icon flaticon-info form-help" title="ICMS, ICMS-ST, PIS, COFINS ou IPI"></i> 
                                       </label>
-                                      <div data-repeater-list="" class="col-lg-10">
-                                        <div data-repeater-item class="form-group m-form__group row align-items-center">
-                                          <div class="col-md-3">
-                                            <div class="m-form__group m-form__group--inline">
-                                              <div class="m-form__label">
-                                                <label>
-                                                  Tipo:
-                                                </label>
-                                              </div>
-                                              <div class="m-form__control">
-                                                <input type="text" class="form-control m-input" placeholder="Insira o tipo">
-                                              </div>
-                                            </div>
-                                            <div class="d-md-none m--margin-bottom-10"></div>
-                                          </div>
-                                          <div class="col-md-5">
-                                            <div class="m-form__group m-form__group--inline">
-                                              <div class="m-form__label">
-                                                <label class="m-label m-label--single">
-                                                  Anexo:
-                                                </label>
-                                              </div>
-                                              <div class="custom-file">
-                                                <input type="file" id="anexo" class="custom-file-input" placeholder="Enter contact number">
-                                                <label class="custom-file-label" for="anexo">
-                                                Buscar...
-                                              </label>
-                                              </div>
-                                            </div>
-                                            <div class="d-md-none m--margin-bottom-10"></div>
-                                          </div>                                          
-                                          <div class="col-md-4">
-                                            <div data-repeater-delete="" class="btn-sm btn btn-danger m-btn m-btn--icon m-btn--pill">
-                                              <span>
-                                                <i class="la la-trash-o"></i>
-                                                <span>
-                                                  Excluir
-                                                </span>
-                                              </span>
-                                            </div>
+                                      <div class="col-lg-2">
+                                        <a id="regime-especial" class="btn btn-secondary m-btn">
+                                          <span>
+                                            <span id="status">SIM!</span>
+                                          </span>
+                                        </a>
+                                      </div>
+                                    </div>
+
+
+
+                                    <div class="form-group m-form__group row regime-especial" style="display:none;">
+                                      <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <div class="m-dropzone dropzone m-dropzone--success" action="/upload">
+                                          <div class="m-dropzone__msg dz-message needsclick">
+                                            <h3 class="m-dropzone__msg-title">
+                                              Anexe todos os arquivos relacionados aqui.
+                                            </h3>
+                                            <span class="m-dropzone__msg-desc">
+                                              * Apenas arquivos em .pdf / .doc / .docx / .jpg
+                                            </span>
                                           </div>
                                         </div>
                                       </div>
                                     </div>
-                                    <div class="m-form__group form-group row">
-                                      <label class="col-lg-2 col-form-label"></label>
-                                      <div class="col-lg-4">
-                                        <div data-repeater-create="" class="btn btn btn-sm btn-brand m-btn m-btn--icon m-btn--pill m-btn--wide">
+
+                                    <div class="form-group m-form__group row regime-especial" style="display:none;">
+                                      <div class="col-lg-12">
+                                        <label>
+                                           Observacoes:
+                                        </label>
+                                        <textarea class="form-control m-input" name="regimeEspecialObs" id="regimeEspecialObs" rows="3"></textarea>
+                                        <span class="m-form__help">
+                                           Adicione qualquer informacao que julgue necessaria nesse campo:
+                                        </span>
+                                      </div>
+                                    </div>
+
+                                    <div class="form-group m-form__group row regime-especial" style="display:none;">
+                                      <label class="col-form-label col-lg-4 col-sm-4">
+                                         Nao se esqueca de fazer o upload <i class="la la-arrow-right"></i>
+                                           
+                                      </label>
+                                      <div class="col-lg-4 m--align-center">
+                                        <a id="upload" class="btn btn-secondary m-btn m-btn--custom m-btn--icon">
                                           <span>
-                                            <i class="la la-plus"></i>
                                             <span>
-                                              Adicionar
+                                              Enviar!
                                             </span>
                                           </span>
-                                        </div>
+                                        </a>
                                       </div>
                                     </div>
-                                  </div>
 
+
+                                  
 
                                   <div class="m-separator m-separator--dashed m-separator--lg"></div>
 
@@ -552,43 +553,41 @@
                                           </div>
 
                                           <div class="form-group m-form__group m-form__group--sm row">
-                                            <label class="col-xl-4 col-lg-4 col-form-label">
+
+                                            <label class="col-xl-2 col-lg-2 col-form-label">
                                               Razão Social:
                                             </label>
-                                            <div class="col-xl-8 col-lg-8">
+                                            <div class="col-xl-4 col-lg-4">
                                               <span id="rev-nome" class="m-form__control-static">
                                               
                                               </span>
                                             </div>
-                                          </div>
 
-                                          <div class="form-group m-form__group m-form__group--sm row">
-                                            <label class="col-xl-4 col-lg-4 col-form-label">
+                                            <label class="col-xl-2 col-lg-2 col-form-label">
                                               Fantasia:
                                             </label>
-                                            <div class="col-xl-8 col-lg-8">
+                                            <div class="col-xl-4 col-lg-4">
                                               <span id="rev-fantasia" class="m-form__control-static">
                                               
                                               </span>
                                             </div>
-                                          </div>    
+
+                                          </div>   
 
                                           <div class="form-group m-form__group m-form__group--sm row">
-                                            <label class="col-xl-4 col-lg-4 col-form-label">
+                                            <label class="col-xl-2 col-lg-2 col-form-label">
                                               CNPJ:
                                             </label>
-                                            <div class="col-xl-8 col-lg-8">
+                                            <div class="col-xl-4 col-lg-4">
                                               <span id="rev-cnpj" class="m-form__control-static">
                                               
                                               </span>
                                             </div>
-                                          </div>
 
-                                          <div class="form-group m-form__group m-form__group--sm row">
-                                            <label class="col-xl-4 col-lg-4 col-form-label">
+                                            <label class="col-xl-2 col-lg-2 col-form-label">
                                               IE:
                                             </label>
-                                            <div class="col-xl-8 col-lg-8">
+                                            <div class="col-xl-4 col-lg-4">
                                               <span id="rev-ie" class="m-form__control-static">
                                               
                                               </span>
@@ -605,45 +604,49 @@
                                             </h4>
                                           </div>
                                           <div class="form-group m-form__group m-form__group--sm row">
-                                            <label class="col-xl-4 col-lg-4 col-form-label">
+
+                                            <label class="col-xl-3 col-lg-3 col-form-label">
                                               Aplicação do Material:
                                             </label>
-                                            <div class="col-xl-8 col-lg-8">
+                                            <div class="col-xl-3 col-lg-3">
                                               <span id="rev-aplicacao" class="m-form__control-static">
                                               
                                               </span>
                                             </div>
-                                          </div>
-                                          <div class="form-group m-form__group m-form__group--sm row">
-                                            <label class="col-xl-4 col-lg-4 col-form-label">
+
+                                            <label class="col-xl-3 col-lg-3 col-form-label">
                                               Contruibuinte de ICMS:
                                             </label>
-                                            <div class="col-xl-8 col-lg-8">
+                                            <div class="col-xl-3 col-lg-3">
                                               <span id="rev-icms" class="m-form__control-static">
                                               
                                               </span>
                                             </div>
+
                                           </div>
+
                                           <div class="form-group m-form__group m-form__group--sm row">
-                                            <label class="col-xl-4 col-lg-4 col-form-label">
+
+                                            <label class="col-xl-3 col-lg-3 col-form-label">
                                               Inscrição Municipal:
                                             </label>
-                                            <div class="col-xl-8 col-lg-8">
+                                            <div class="col-xl-3 col-lg-3">
                                               <span id="rev-im" class="m-form__control-static">
                                               
                                               </span>
                                             </div>
-                                          </div>
-                                          <div class="form-group m-form__group m-form__group--sm row">
-                                            <label class="col-xl-4 col-lg-4 col-form-label">
+
+                                            <label class="col-xl-3 col-lg-3 col-form-label">
                                               Código Suframa:
                                             </label>
-                                            <div class="col-xl-8 col-lg-8">
-                                              <span id="rev-emailXML" class="m-form__control-static">
+                                            <div class="col-xl-3 col-lg-3">
+                                              <span id="rev-suframa" class="m-form__control-static">
                                               
                                               </span>
                                             </div>
+
                                           </div>
+                                         
                                           <div class="form-group m-form__group m-form__group--sm row">
                                             <label class="col-xl-4 col-lg-4 col-form-label">
                                               Email para XML e DANFE:
@@ -654,6 +657,39 @@
                                               </span>
                                             </div>
                                           </div>
+
+                                          <div class="form-group m-form__group m-form__group--sm row">
+                                            <label class="col-xl-2 col-lg-2 col-form-label">
+                                              CNAE Principal:
+                                            </label>
+                                            <div class="col-xl-10 col-lg-10">
+                                              <span id="rev-atividade_principal" class="m-form__control-static">
+                                              
+                                              </span>
+                                            </div>
+                                          </div>
+
+                                          <div class="form-group m-form__group m-form__group--lg row regime-especial" style="display:none;">
+                                            <label class="col-xl-2 col-lg-2 col-form-label">
+                                              Regime Especial:
+                                            </label>
+                                            <div class="col-xl-10 col-lg-10">
+                                              <!-- <span id="rev-regimeEspecialObs" class="m-form__control-static">                                              
+                                              </span> -->
+                                              <textarea id="rev-regimeEspecialObs" class="form-control m-input" disabled="disabled" rows="3"></textarea>
+                                            </div>
+                                          </div>
+
+                                          <div class="form-group m-form__group m-form__group--sm row regime-especial" style="display:none;">
+                                            <label class="col-xl-12 col-lg-12 col-form-label">
+                                              Arquivos anexados:
+                                            </label>
+                                            <div id="regime-especial-file" class="col-xl-12 col-lg-12">
+                                              <span class="m-form__control-static">
+                                              </span>
+                                            </div>
+                                          </div>
+
                                         </div>
 
                                         <div class="m-separator m-separator--dashed m-separator--lg"></div>
@@ -664,36 +700,84 @@
                                               <i class="fa flaticon-map-location icon-rev"></i> Endereço
                                             </h4>
                                           </div>
+
                                           <div class="form-group m-form__group m-form__group--sm row">
-                                            <label class="col-xl-4 col-lg-4 col-form-label">
-                                              Aplicação do Material
+
+                                            <label class="col-xl-2 col-lg-2 col-form-label">
+                                              Logradouro
                                             </label>
-                                            <div class="col-xl-8 col-lg-8">
-                                              <span id="rev-aplicacao" class="m-form__control-static">
+                                            <div class="col-xl-6 col-lg-6">
+                                              <span id="rev-logradouro" class="m-form__control-static">
                                               
                                               </span>
                                             </div>
+
+                                            <label class="col-xl-1 col-lg-1 col-form-label">
+                                              n.
+                                            </label>
+                                            <div class="col-xl-2 col-lg-2">
+                                              <span id="rev-numero" class="m-form__control-static">
+                                              
+                                              </span>
+                                            </div>
+
+
                                           </div>
+
+
+
                                           <div class="form-group m-form__group m-form__group--sm row">
-                                            <label class="col-xl-4 col-lg-4 col-form-label">
-                                              Contruibuinte de ICMS:
+
+                                            <label class="col-xl-1 col-lg-1 col-form-label">
+                                              CEP
                                             </label>
-                                            <div class="col-xl-8 col-lg-8">
-                                              <span id="rev-icms" class="m-form__control-static">
+                                            <div class="col-xl-2 col-lg-2">
+                                              <span id="rev-cep" class="m-form__control-static">
                                               
                                               </span>
                                             </div>
-                                          </div>
-                                          <div class="form-group m-form__group m-form__group--sm row">
-                                            <label class="col-xl-4 col-lg-4 col-form-label">
-                                              Inscrição Municipal:
+
+                                            <label class="col-xl-2 col-lg-2 col-form-label">
+                                              Municipio
                                             </label>
-                                            <div class="col-xl-8 col-lg-8">
-                                              <span id="rev-im" class="m-form__control-static">
+                                            <div class="col-xl-3 col-lg-3">
+                                              <span id="rev-municipio" class="m-form__control-static">
                                               
                                               </span>
                                             </div>
-                                          </div>                                    
+
+                                            <label class="col-xl-1 col-lg-1 col-form-label">
+                                              Estado
+                                            </label>
+                                            <div class="col-xl-1 col-lg-1">
+                                              <span id="rev-uf" class="m-form__control-static">
+                                              
+                                              </span>
+                                            </div>
+
+                                          </div> 
+
+                                          <div class="form-group m-form__group m-form__group--sm row">
+
+                                            <label class="col-xl-2 col-lg-2 col-form-label">
+                                              Bairro
+                                            </label>
+                                            <div class="col-xl-4 col-lg-4">
+                                              <span id="rev-bairro" class="m-form__control-static">
+                                              
+                                              </span>
+                                            </div>
+
+                                            <label class="col-xl-2 col-lg-2 col-form-label">
+                                              Complemento
+                                            </label>
+                                            <div class="col-xl-4 col-lg-4">
+                                              <span id="rev-complemento" class="m-form__control-static">
+                                              
+                                              </span>
+                                            </div>                                            
+
+                                          </div>                                   
 
                                         </div>
 
@@ -749,7 +833,7 @@
                                     <div class="m-checkbox-inline">
                                       <label class="m-checkbox m-checkbox--solid m-checkbox--brand">
                                         <input type="checkbox" name="accept" value="1">
-                                        Click here to indicate that you have read and agree to the terms presented in the Terms and Conditions agreement
+                                        Clique aqui para confirmar os dados!
                                         <span></span>
                                       </label>
                                     </div>
@@ -787,7 +871,7 @@
                                     </span>
                                   </span>
                                 </a>
-                                <a href="#" class="btn btn-warning m-btn m-btn--custom m-btn--icon" data-wizard-action="next">
+                                <a href="#" class="btn btn-primary m-btn m-btn--custom m-btn--icon" data-wizard-action="next">
                                   <span>
                                     <span>
                                       Salvar & Continuar
