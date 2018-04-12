@@ -12,7 +12,7 @@ var grid = require('gridfs-stream');
 
 // var wago = JSON.parse(fs.readFileSync('test.json', 'utf8'));
 
-var company = require('../models/company');
+// var Company = require('../models/company');
 
 /**
  * GET /
