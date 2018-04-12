@@ -7,9 +7,12 @@ const path = require('path');
 // const CNPJ = require("cpf_cnpj").CNPJ;
 // const Excel = require('exceljs');
 const request = require('request'); // https://www.npmjs.com/package/request
+var grid = require('gridfs-stream');
     // , async = require('async'); // https://www.npmjs.com/package/asyn
 
 // var wago = JSON.parse(fs.readFileSync('test.json', 'utf8'));
+
+var company = require('../models/company');
 
 /**
  * GET /
@@ -88,13 +91,46 @@ exports.check = (req, res) => {
 };
 
 
+// validCnpjs.push(cnpjsArray[i]);
+
+// 			var company = new Empresa({
+// 			  uuid: uuid,
+// 			  ie: cnpjsArray[i]
+// 			});
+
+// 			company.save(function(err) {
+// 			  if (err) throw err;
+// 			  savedCnpjs.push(cnpjsArray[i]);
+
+// 			  console.log("saved " + savedCnpjs.length + " out of " + cnpjsArray.length)
+
+
+// 			  console.log('Cnpj saved successfully!', cnpjsArray[i]);
+// 			  if(i=0){
+// 			  console.log('Done');
+
+
+// 			  }
+// 			});
+			// console.log('File uploaded : ' + files.file.path);
+   //        	grid.mongo = mongoose.mongo;
+   //        	var conn = mongoose.createConnection('..mongo connection string..');
+   //        	conn.once('open', function () {
+   //        	var gfs = grid(conn.db);
+
+   //        	var writestream = gfs.createWriteStream({
+   //            filename: files.file.name
+   //        	});
+
+   //        	fs.createReadStream(files.file.path).pipe(writestream);
+  	// 	 	});
 
 
 /**
  * POST /
- * upload page.
+ * upload file.
  */
-exports.upload = (req, res) => {
+exports.uploadFile = (req, res) => {
 	let fullUrl = req.protocol + '://' + req.get('host');
   	if (!req.files)
 		return res.status(400).send('No files were uploaded.');
@@ -105,11 +141,18 @@ exports.upload = (req, res) => {
 	// // Use the mv() method to place the file somewhere on your server
 	let folderDest = path.resolve(__dirname, '../files/' + uploadedFile.name );
 
+				
 
 	uploadedFile.mv(folderDest, function(err) {
 		if (err) {
 			return res.status(500).send(err);
-		} else {			
+		} else {	
+				var writestream = grid.createWriteStream({
+	               filename: uploadedFile.name,
+	               root: 'company'
+	          	});
+				fs.createReadStream(folderDest).pipe(writestream);	
+
 			return res.status(200).send('Arquivo recebido!');
 		}
 

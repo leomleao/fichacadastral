@@ -10,7 +10,7 @@ var WizardDemo = function () {
     var wizard;
     var form;
     var formData = {};
-    var uuid = $("#uuid").val();
+    var uuid = $("#uuid").val(); //value of uuid sent to form from backend
     
     //== Private functions
     var initWizard = function () {
@@ -19,37 +19,29 @@ var WizardDemo = function () {
             startStep: 1
         });
 
+
+        // this toggle the button to either add or not additional information of tributes
         $( "#regime-especial" ).click(function() {
             if($( "#status").text() == "SIM!"){
                 $( "#status").text("NAO!");
             } else {
                 $( "#status").text("SIM!");                
             }
-            $( ".regime-especial" ).slideToggle( "slow", function() {
-            // Animation complete.
+
+            // slider of the addtional data, with the dropzone field
+            $( ".regime-especial" ).slideToggle( "slow", function() {                
             });
         });
-        // file type validation
-        // Dropzone.options.mDropzoneThree = {
-        //   addRemoveLinks: true,
-        //   maxFiles: 10,
-        //   maxFilesize: 5, // MB
-        //   dictCancelUpload: "Cancelar",
-        //   autoProcessQueue: true 
-        // };
 
+
+        // field to upload files
         var dropZone = new Dropzone(".dropzone", {
-            // init: function() {
-            //     this.on("maxfilesexceeded", function(file) {
-            //         this.removeFile(file);
-            //     }),
-            // },
-            url: "/upload",
+            url: "/uploadFile",
             addRemoveLinks: true,
             maxFiles: 10,
             maxFilesize: 3, // MB
             dictCancelUpload: "Cancelar",
-            autoProcessQueue: false,
+            autoProcessQueue: false, //auto upload on file drop
             parallelUploads: 2,
             ignoreHiddenFiles: true,
             acceptedFiles: "image/*,.pdf,.doc,.docx",
@@ -57,31 +49,34 @@ var WizardDemo = function () {
                 return uuid + '_' + filename;
             },
             init: function () {
+                //upload are not grouped, this call happens with each file
                 this.on("success", function(file) {
-                   dropZone.options.autoProcessQueue = true; 
-                   addNodeUploadedFile(file.name);
+                   dropZone.options.autoProcessQueue = true; //afer button upload has been pressed start to automatically upload next files
+                   addNodeUploadedFile(file.name); // add a field in the rev form with the file, this only happens on success uploads
                 });
             }
                 
         });
 
+        //button to uplaod files
         $('#upload').click(function(){           
-          dropZone.processQueue();         
-    
+            dropZone.processQueue();
         });
 
         
-                // phone number format
+        // cnpj mask
         $("#cnpj").inputmask("mask", {
             "mask": "99.999.999/9999-99"
         });
 
+        //postal-code mask
         $("#cep").inputmask("mask", {
             "mask": "99.999-999"
         });
 
+        //phone mask
         $("#telFinanceiro").inputmask("mask", {
-            mask: ["(99) 9999-9999", "(99) 99999-9999", ],
+            mask: ["(99) 9999-9999", "(99) 99999-9999", ], //use either one
             keepStatic: true
         });
 
@@ -90,8 +85,46 @@ var WizardDemo = function () {
             if (validator.form() !== true) {
                 return false;  // don't go to the next step
             }
-            form = formEl.serializeArray();
-            populateDataObj(form, populateRevForm);
+
+            var im          = formEl.find('#im');
+            var complemento = formEl.find('#complemento');
+            var bairro      = formEl.find('#bairro');
+            var ie          = formEl.find('#ie');
+            var suframa     = formEl.find('#suframa');
+
+            if (ie.val() == '') {
+                toggleRevField('ie', 'hide');
+            } else {
+                toggleRevField('ie', 'show');
+            }
+
+            if (im.val() == '') {
+                toggleRevField('im', 'hide');
+            } else {
+                toggleRevField('im', 'show');
+            } 
+
+            if (suframa.val() == '') {
+                toggleRevField('suframa', 'hide');
+            } else {
+                toggleRevField('suframa', 'show');
+            }            
+
+
+            if (complemento.val() == '') {
+                toggleRevField('complemento', 'hide');
+            } else {
+                toggleRevField('complemento', 'show');
+            }   
+
+            if (bairro.val() == '') {
+                toggleRevField('bairro', 'hide');
+            } else {
+                toggleRevField('bairro', 'show');
+            }
+            
+            form = formEl.serializeArray(); //get actual typed data
+            populateDataObj(form, populateRevForm); //populate the object which is being sent to the backend and soon after the revision form
         })
 
         //== Change event
@@ -110,7 +143,7 @@ var WizardDemo = function () {
                 //=== Identificacao               
                 cnpj: {
                     required: true,
-                    cnpj: true
+                    cnpj: true //custom created cnpj rule, check js folder
                 },
 
                 ie: {
@@ -204,11 +237,18 @@ var WizardDemo = function () {
                     required: "Por favor, confirme os dados antes de enviar."
                 } 
             },
+      
             
             //== Display error  
-            invalidHandler: function(event, validator) {     
-                mApp.scrollTop();
+            invalidHandler: function(event, validator) {
+                var errors = validator.numberOfInvalids();
+                var element = validator.errorList[0].element;
+                    if (errors) {   
 
+                        $('html, body').animate({ scrollTop: $('input[name="' + element.name + '"]').offset().top - (screen.height / 2) }, 500);                
+                        element.focus();
+                    }
+                
                 swal({
                     "title": "", 
                     "text": "Formulário não completo. Por favor, preencha todos os campos obrigatórios.", 
@@ -254,6 +294,8 @@ var WizardDemo = function () {
     }
 
     function populateForm (data, callback) {
+
+        // ##TODO can be reworked to check with backend too, and add all received fields
        $("#nome").val(data.nome);
        $("#fantasia").val(data.fantasia);
        $("#logradouro").val(data.logradouro);
@@ -271,14 +313,32 @@ var WizardDemo = function () {
 
     function addNodeUploadedFile (filename) {
         var newLine = $('#regime-especial-file').clone();
-        newLine.removeAttr( "id" );
+        newLine.removeAttr( "id" ); //next clones won't be duplicated.
 
         newLine.children().text(filename);
         newLine.show().appendTo($('#regime-especial-file').parent());
     }
 
+    //function to hide the rev field.
+    function toggleRevField(key, option) {
+        var label   = $( "#rev-" + key ).parent().prev();
+        var divSpan = $( "#rev-" + key ).parent();
+
+        if (option == "hide"){
+            label.hide();
+            divSpan.hide();
+        } else {
+            label.show();
+            divSpan.show();
+        }
+    }
+
     function populateRevForm(data) {
+            if (formEl.find('input[type=radio][name=icms]').attr('disabled') == 'disabled') {
+                $( "#rev-icms").text("Não contribuinte.");
+            }
         Object.keys(data).forEach(function(key) {
+       
             if( key == "icms" && data[key] == 0 ){
                 $( "#rev-" + key ).text("Não contribuinte.");
 
@@ -350,24 +410,31 @@ var WizardDemo = function () {
         var yesICMSField = formEl.find('input[type=radio][name=icms][value=1]');
         var helper       = formEl.find('#helper-icms');
 
-            ie.on('change', function(e) {                
-                if (ie.val() == '') {
+        ie.on('change', function(e) {                
+            if (ie.val() == '') {
 
-                    yesICMSField.prop('checked', false);
-                    noICMSField.prop('checked', true);
-                    fieldICMS.attr('disabled', 'true');
-                    helper.text("Caso seja contribuinte, preencha o campo IE.");
-                    yesICMSField.next().addClass('without-after-element');
+                yesICMSField.prop('checked', false);
+                noICMSField.prop('checked', true);
+                fieldICMS.attr('disabled', 'true');
+                helper.text("Caso seja contribuinte, preencha o campo IE.");
+                yesICMSField.next().addClass('without-after-element');
+                toggleRevField('ie', 'hide');
 
 
-                } else {
-                    fieldICMS.attr('disabled', false);                                      
-                    helper.text("");
-                    yesICMSField.next().removeClass('without-after-element');
-                    
-                }
+            } else {
+                fieldICMS.attr('disabled', false);                                      
+                helper.text("");
+                yesICMSField.next().removeClass('without-after-element');
+                toggleRevField('ie', 'show');
+
+
                 
-            });
+            }
+            
+        });
+
+
+
 
 
 

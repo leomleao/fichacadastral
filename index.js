@@ -1,8 +1,10 @@
 const express = require('express');
 const fileUpload = require('express-fileupload');
-// const mongoose = require('mongoose');
+const mongoose = require('mongoose');
+const Grid = require('gridfs-stream');
+Grid.mongo = mongoose.mongo;
 
-// const dotenv = require('dotenv');
+if (process.env.NODE_ENV !== 'production') require('dotenv').config()
 
 const path = require('path');
 var port = process.env.PORT || 8000
@@ -12,27 +14,18 @@ const homeController = require('./controllers/home');
 const uploadController = require('./controllers/upload');
 
 
-const app = express();
-
-
-/**
- * Load environment variables from .env file, where API keys and passwords are configured.
- */
-// dotenv.load({ path: '.env' });
-
 /**
  * Connect to MongoDB.
  */
-// mongoose.Promise = global.Promise;
-// mongoose.connect(process.env.MONGODB_URI, { useMongoClient: true });
+mongoose.Promise = global.Promise;
+mongoose.connect(process.env.MONGODB_URI, function(error) {
+	var gfs = Grid(mongoose.db); 
+});
 
 
-
+const app = express();
 
 app.set('views', path.join(__dirname, 'views'));
-
-
-
 
 app.use(fileUpload());
 
@@ -42,12 +35,13 @@ app.set('views', path.join(__dirname, 'views'));
 
 app.set('view engine', 'ejs');
 
-app.get('/', homeController.index);
 
+
+app.get('/', homeController.index);
 
 app.get('/check/:cnpj', uploadController.check);
 
-app.post('/upload', uploadController.upload );
+app.post('/uploadFile', uploadController.uploadFile );
 
 
 
