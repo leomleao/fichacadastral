@@ -1,7 +1,16 @@
-language: node_js # Sets which engine use to build the project
-node_js: "node" # Specifies node version to use "node"="latest"
-
 deploy:
   provider: gae
-  keyfile: "omega-zeta-e69b7fc5c58fGitHUb.json.enc"
-  project: "omega-zeta"
+  skip_cleanup: true
+  keyfile: client-secret.json
+  project: omega-zeta
+  default: true
+  on:
+    all_branches: true
+language: node_js
+node_js: node
+before_install:
+- openssl aes-256-cbc -K $encrypted_4102d5d21f12_key -iv $encrypted_4102d5d21f12_iv
+  -in credentials.tar.gz.enc -out credentials.tar.gz -d
+- tar -xzf credentials.tar.gz
+script:
+- echo "No Script to run"
