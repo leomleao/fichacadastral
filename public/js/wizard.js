@@ -275,10 +275,20 @@ var WizardDemo = function () {
                 mApp.progress(btn);
                 //mApp.block(formEl); 
 
-                //== See: http://malsup.com/jquery/form/#ajaxSubmit
-                formEl.ajaxSubmit({
-                    success: function() {
-                        mApp.unprogress(btn);
+
+                $.ajax({
+                    url: 'form',
+                    type: "POST",
+                    data: formData,
+                    dataType: "json",
+                    beforeSend: function(x) {
+                        if (x && x.overrideMimeType) {
+                          x.overrideMimeType("application/j-son;charset=UTF-8");
+                        }
+                    },
+                    success: function(response){
+                      console.info(response);
+                      mApp.unprogress(btn);
                         //mApp.unblock(formEl);
 
                         swal({

@@ -4,7 +4,8 @@ const decoder           = new StringDecoder('utf8');
 const fs                = require('fs');
 const path              = require('path');
 const request           = require('request'); // https://www.npmjs.com/package/request
-const grid                = require('gridfs-stream');
+
+
 
 // Imports the Google Cloud client library
 const Storage = require('@google-cloud/storage');
@@ -15,10 +16,6 @@ const storage = new Storage();
 // The name for the new bucket
 const bucketName = 'olympus-db';
 
-
-// var wago = JSON.parse(fs.readFileSync('test.json', 'utf8'));
-
-var Company = require('../models/Company');
 
 /**
  * GET /
@@ -97,39 +94,71 @@ exports.check = (req, res) => {
 };
 
 
-// validCnpjs.push(cnpjsArray[i]);
+/**
+ * POST /
+ * upload form data and save it DB.
+ */
+exports.form = (req, res) => {
+	// var jsonParser = bodyParser.json()
+	let fullUrl = req.protocol + '://' + req.get('host');
 
-// 			var company = new Empresa({
-// 			  uuid: uuid,
-// 			  ie: cnpjsArray[i]
-// 			});
+	// if (!req.body) return res.sendStatus(400)
+	console.info(req.body);
+	
 
-// 			company.save(function(err) {
-// 			  if (err) throw err;
-// 			  savedCnpjs.push(cnpjsArray[i]);
-
-// 			  console.log("saved " + savedCnpjs.length + " out of " + cnpjsArray.length)
-
-
-// 			  console.log('Cnpj saved successfully!', cnpjsArray[i]);
-// 			  if(i=0){
-// 			  console.log('Done');
+	var pdfFiller   = require('pdffiller'); 
+	var sourcePDF = path.resolve(__dirname, '../public/form-ficha-cadastral-WAGO.pdf');
+	// var sourcePDF = './public/form-ficha-cadastral-WAGO.pdf';
+	var destinationPDF =  path.resolve(__dirname, '../files/' + req.body.uuid + '_#_ficha-cadastral.pdf'); ;
+	// var destinationPDF =  path.resolve(__dirname, '../files/larou.pdf'); 
+	// var destinationPDF =  './files/larou.pdf'; 
 
 
-// 			  }
-// 			});
-			// console.log('File uploaded : ' + files.file.path);
-   //        	grid.mongo = mongoose.mongo;
-   //        	var conn = mongoose.createConnection('..mongo connection string..');
-   //        	conn.once('open', function () {
-   //        	var gfs = grid(conn.db);
 
-   //        	var writestream = gfs.createWriteStream({
-   //            filename: files.file.name
-   //        	});
+	var data = {
+	    'nome': req.body.nome,
+	    'fantasia': req.body.fantasia,
+	    'cnpj': req.body.cnpj,
+	    // 'ie': req.body.ie,
+	    'aplicacao': req.body.aplicacao,
+	    'im': req.body.im,
+	    // 'icms': req.body.icms,
+	    // 'suframa': req.body.suframa,
+	    'emailXML': req.body.emailXML,
+	    'atividade_principal': req.body['atividade_principal[0][code]'] + " - " + req.body['atividade_principal[0][text]'],
+	    'logradouro': req.body.logradouro,
+	    'numero': req.body.numero,
+	    'cep': req.body.cep,
+	    'bairro': req.body.bairro,
+	    'municipio': req.body.municipio,
+	    'uf': req.body.uf,
+	    'nomeFinanceiro': req.body.nomeFinanceiro,
+	    'telFinanceiro': req.body.telFinanceiro,
+	    'emailFinanceiro': req.body.emailFinanceiro
 
-   //        	fs.createReadStream(files.file.path).pipe(writestream);
-  	// 	 	});
+	};
+	 
+	pdfFiller.fillFormWithOptions( sourcePDF, destinationPDF, data, false, './files/temp', function(err) {
+	    // if (err) throw err;
+
+		// using SendGrid's v3 Node.js Library
+		// https://github.com/sendgrid/sendgrid-nodejs
+		const sgMail = require('@sendgrid/mail');
+		sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+		const msg = {
+		  to: 'leonardo.leao@wago.com',
+		  from: 'test@example.com',
+		  subject: 'Ficha cadastral do cliente ' + req.body.cnpj,
+		  text: req.body.nome,
+		  html: '<strong>'req.body.nome'</strong>',
+		};
+		sgMail.send(msg);
+
+	    return res.status(200).send('Deu tudo certo parça!');
+	});
+  	
+}
+
 
 
 /**

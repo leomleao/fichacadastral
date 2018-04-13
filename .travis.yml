@@ -10,5 +10,5 @@ deploy:
   project: omega-zeta
   default: true
   on:
-    all_branches: true
+    branch: "prod"
 

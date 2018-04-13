@@ -1,6 +1,6 @@
 // Dependencies
-var gulp = require('gulp');
-var nodemon = require('gulp-nodemon');
+var gulp       = require('gulp');
+var nodemon    = require('gulp-nodemon');
 var livereload = require('gulp-livereload');
  
 // Task

@@ -1,7 +1,18 @@
+// Require which and child_process
+const which = require('which');
+const spawn = require('child_process').spawn;
+// Find npm in PATH
+const npm = which.sync('npm');
+// Execute
+const noErrorSpawn = spawn(npm, ['install']);
+
+
 const express = require('express');
 const fileUpload = require('express-fileupload');
+const bodyParser = require('body-parser');
 
-if (process.env.GCLOUD !== 'nope' && process.env.USERDOMAIN_ROAMINGPROFILE !== 'DESKTOP-A7H495I') {
+
+if (process.env.GCLOUD !== 'nope' && process.env.USERDOMAIN_ROAMINGPROFILE !== 'DESKTOP-A7H495I' && process.env.COMPUTERNAME !== 'PC226276' ) {
   // Imports the Google Cloud client library
   const Storage = require('@google-cloud/storage');
 
@@ -35,7 +46,6 @@ if (process.env.GCLOUD !== 'nope' && process.env.USERDOMAIN_ROAMINGPROFILE !== '
 
 if (process.env.NODE_ENV !== 'production') require('dotenv').config({path: './env.env'})
 
-	console.info(process.env);
 
 const path = require('path');
 var port = process.env.PORT || 8000
@@ -44,10 +54,6 @@ const cnpjController = require('./controllers/cnpj');
 const homeController = require('./controllers/home');
 const uploadController = require('./controllers/upload');
 
-
-/**
- * Connect to MongoDB.
- */
 
 
 const app = express();
@@ -62,6 +68,12 @@ app.set('views', path.join(__dirname, 'views'));
 
 app.set('view engine', 'ejs');
 
+// create application/json parser
+// var jsonParser = bodyParser.json()
+
+// create application/x-www-form-urlencoded parser
+var urlencodedParser = bodyParser.urlencoded({ extended: false })
+
 
 
 app.get('/', homeController.index);
@@ -69,6 +81,8 @@ app.get('/', homeController.index);
 app.get('/check/:cnpj', uploadController.check);
 
 app.post('/uploadFile', uploadController.uploadFile );
+
+app.post('/form', urlencodedParser, uploadController.form );
 
 
 

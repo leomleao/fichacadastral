@@ -4,6 +4,8 @@ npm-debug.log
 
 files/*
 !files/.gitkeep
+files/temp/*
+!files/temp/.gitkeep
 
 # Local development
 *.env
