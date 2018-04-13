@@ -154,16 +154,18 @@ exports.uploadFile = (req, res) => {
 			return res.status(500).send(err);
 		} else {	
 				
-				//Uploads a local file to the bucket
-				storage
-				  .bucket(bucketName)
-				  .upload(folderDest)
-				  .then(() => {
-				    console.log(`${uploadedFile.name} uploaded to ${bucketName}.`);
-				  })
-				  .catch(err => {
-				    console.error('ERROR:', err);
-				});	
+			//Uploads a local file to the bucket
+			storage
+			  .bucket(bucketName)
+			  .upload(folderDest)
+			  .then(() => {
+			    console.log(`${uploadedFile.name} uploaded to ${bucketName}.`);
+			  })
+			  .catch(err => {
+			    console.error('ERROR:', err);
+			});	
+
+			  sendMail();
 			
 				
 			return res.status(200).send('Arquivo recebido!');
@@ -172,6 +174,22 @@ exports.uploadFile = (req, res) => {
 	});
 
 };
+
+function sendMail(){
+	// using SendGrid's v3 Node.js Library
+	// https://github.com/sendgrid/sendgrid-nodejs
+	const sgMail = require('@sendgrid/mail');
+	sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+	const msg = {
+	  to: 'test@example.com',
+	  from: 'test@example.com',
+	  subject: 'Sending with SendGrid is Fun',
+	  text: 'and easy to do anywhere, even with Node.js',
+	  html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+	};
+	sgMail.send(msg);
+
+}
 
 
 // function sendUploadToGCS (req, res, next) {
