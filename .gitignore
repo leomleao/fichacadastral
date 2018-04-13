@@ -15,5 +15,7 @@ files/*
 Dockerfile
 docker-compose.yml
 
+api_key.py
 api_key.key
+client-secret.json
 credentials.tar.gz
