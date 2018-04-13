@@ -1,0 +1,1 @@
+console.info("App is OK"); //JUDGE ME! XD

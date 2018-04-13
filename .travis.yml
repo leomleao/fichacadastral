@@ -1,0 +1,7 @@
+language: node_js # Sets which engine use to build the project
+node_js: "node" # Specifies node version to use "node"="latest"
+
+deploy:
+  provider: gae
+  keyfile: "omega-zeta-e69b7fc5c58fGitHUb.json.enc"
+  project: "omega-zeta"
