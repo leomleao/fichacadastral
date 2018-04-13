@@ -1,18 +1,24 @@
-const uuidv4 = require('uuid/v4');
+const uuidv4            = require('uuid/v4');
 const { StringDecoder } = require('string_decoder');
-const decoder = new StringDecoder('utf8');
-// const Cnpj = require('../models/Cnpj');
-const fs = require('fs');
-const path = require('path');
-// const CNPJ = require("cpf_cnpj").CNPJ;
-// const Excel = require('exceljs');
-const request = require('request'); // https://www.npmjs.com/package/request
-var grid = require('gridfs-stream');
-    // , async = require('async'); // https://www.npmjs.com/package/asyn
+const decoder           = new StringDecoder('utf8');
+const fs                = require('fs');
+const path              = require('path');
+const request           = require('request'); // https://www.npmjs.com/package/request
+const grid                = require('gridfs-stream');
+
+// Imports the Google Cloud client library
+const Storage = require('@google-cloud/storage');
+
+// Creates a client
+const storage = new Storage();
+
+// The name for the new bucket
+const bucketName = 'olympus-db';
+
 
 // var wago = JSON.parse(fs.readFileSync('test.json', 'utf8'));
 
-// var Company = require('../models/company');
+var Company = require('../models/Company');
 
 /**
  * GET /
@@ -141,21 +147,59 @@ exports.uploadFile = (req, res) => {
 	// // Use the mv() method to place the file somewhere on your server
 	let folderDest = path.resolve(__dirname, '../files/' + uploadedFile.name );
 
-				
+	  				
 
 	uploadedFile.mv(folderDest, function(err) {
 		if (err) {
 			return res.status(500).send(err);
 		} else {	
-				var writestream = grid.createWriteStream({
-	               filename: uploadedFile.name,
-	               root: 'company'
-	          	});
-				fs.createReadStream(folderDest).pipe(writestream);	
-
+				
+				//Uploads a local file to the bucket
+				storage
+				  .bucket(bucketName)
+				  .upload(folderDest)
+				  .then(() => {
+				    console.log(`${uploadedFile.name} uploaded to ${bucketName}.`);
+				  })
+				  .catch(err => {
+				    console.error('ERROR:', err);
+				});	
+			
+				
 			return res.status(200).send('Arquivo recebido!');
 		}
 
 	});
 
 };
+
+
+// function sendUploadToGCS (req, res, next) {
+//   if (!req.file) {
+//     return next();
+//   }
+
+//   const gcsname = Date.now() + req.file.originalname;
+//   const file = bucket.file(gcsname);
+
+//   const stream = file.createWriteStream({
+//     metadata: {
+//       contentType: req.file.mimetype
+//     }
+//   });
+
+//   stream.on('error', (err) => {
+//     req.file.cloudStorageError = err;
+//     next(err);
+//   });
+
+//   stream.on('finish', () => {
+//     req.file.cloudStorageObject = gcsname;
+//     file.makePublic().then(() => {
+//       req.file.cloudStoragePublicUrl = getPublicUrl(gcsname);
+//       next();
+//     });
+//   });
+
+//   stream.end(req.file.buffer);
+// }

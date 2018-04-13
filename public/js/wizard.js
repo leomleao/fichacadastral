@@ -46,7 +46,7 @@ var WizardDemo = function () {
             ignoreHiddenFiles: true,
             acceptedFiles: "image/*,.pdf,.doc,.docx",
             renameFilename: function (filename) {
-                return uuid + '_' + filename;
+                return uuid + '_#_' + filename;
             },
             init: function () {
                 //upload are not grouped, this call happens with each file

@@ -1,9 +1,5 @@
 const express = require('express');
 const fileUpload = require('express-fileupload');
-const mongoose = require('mongoose');
-const Grid = require('gridfs-stream');
-Grid.mongo = mongoose.mongo;
-
 if (process.env.NODE_ENV !== 'production') require('dotenv').config()
 
 const path = require('path');
@@ -17,10 +13,6 @@ const uploadController = require('./controllers/upload');
 /**
  * Connect to MongoDB.
  */
-mongoose.Promise = global.Promise;
-mongoose.connect(process.env.MONGODB_URI, function(error) {
-	var gfs = Grid(mongoose.db); 
-});
 
 
 const app = express();
