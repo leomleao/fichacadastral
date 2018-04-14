@@ -21,9 +21,34 @@ exports.index = (req, res) => {
  * Home page.
  */
 exports.pageReview = (req, res) => {
-  let uuid = uuidv4();
-  res.render('pages/template-form', {
-    title: 'teste'
+  	let uuid = uuidv4();
+  	var date = new Date();
+	var current_hour = date.getHours();
+
+	console.error(current_hour);
+
+	var time;
+	var data = {  
+	   nome:'WAGO ELETROELETRONICOS LTDA.',
+	   uf:'SP',
+	   situacao:'ATIVA',   
+	   municipio:'JUNDIAI',   
+	   fantasia:'WAGO',
+	   cnpj:'07.384.827/0001-95',   
+	   capital_social:'24737500.00'
+	};
+
+	if (current_hour <= 11 && current_hour >= 6) {
+		time = 'morning'
+	} else if (current_hour >= 12 && current_hour <= 18) {
+		time = 'afternoon'
+	} else {
+		time = 'night'
+	}
+
+  res.render('pages/template-email', {
+    time: time,
+    data: data
   });
 };
 
@@ -60,7 +85,6 @@ exports.test = (req, res) => {
 
 
 	const template = path.join(__dirname, '../views/pages/template-form.ejs');
-
 
 	ejs.renderFile(template, function (err, html) {
         if (err) {

@@ -59,6 +59,7 @@ const uploadController = require('./controllers/upload');
 const app = express();
 
 app.use(fileUpload());
+app.use(bodyParser.json());
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -66,11 +67,9 @@ app.set('views', path.join(__dirname, 'views'));
 
 app.set('view engine', 'ejs');
 
-// create application/json parser
-// var jsonParser = bodyParser.json()
 
 // create application/x-www-form-urlencoded parser
-var urlencodedParser = bodyParser.urlencoded({ extended: false })
+// var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 
 
@@ -80,10 +79,10 @@ app.get('/check/:cnpj', uploadController.check);
 
 app.post('/uploadFile', uploadController.uploadFile );
 
-app.post('/form', urlencodedParser, uploadController.form );
+app.post('/form',  uploadController.form );
 
-app.get('/test', urlencodedParser, homeController.test );
-app.get('/pageReview', urlencodedParser, homeController.pageReview );
+app.get('/test',  homeController.test );
+app.get('/pageReview',  homeController.pageReview );
 
 
 

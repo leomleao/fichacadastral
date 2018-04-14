@@ -274,21 +274,19 @@ var WizardDemo = function () {
                 //== See: src\js\framework\base\app.js
                 mApp.progress(btn);
                 //mApp.block(formEl); 
-
+                console.info(formData);
+                console.info("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+                console.info(JSON.stringify(formData));
 
                 $.ajax({
                     url: 'form',
                     type: "POST",
-                    data: formData,
-                    dataType: "json",
-                    beforeSend: function(x) {
-                        if (x && x.overrideMimeType) {
-                          x.overrideMimeType("application/j-son;charset=UTF-8");
-                        }
-                    },
+                    data: JSON.stringify(formData),
+                    dataType: "JSON",            
+                    contentType: "application/json",        
                     success: function(response){
-                      console.info(response);
-                      mApp.unprogress(btn);
+                        console.info(response);
+                        mApp.unprogress(btn);
                         //mApp.unblock(formEl);
 
                         swal({
@@ -297,7 +295,19 @@ var WizardDemo = function () {
                             "type": "success",
                             "confirmButtonClass": "btn btn-secondary m-btn m-btn--wide"
                         });
-                    }
+                    }, error: function(response){
+                        console.info(response);
+                        mApp.unprogress(btn);
+                        //mApp.unblock(formEl);
+
+                        swal({
+                        "title": "", 
+                        "text": "Houve alguum problema no envio desse formulário. Por favor, nos contate via email: adm.br@wago.com", 
+                        "type": "error",
+                        "confirmButtonClass": "btn btn-secondary m-btn m-btn--wide"
+                        });
+                    },
+
                 });
             }
         });
