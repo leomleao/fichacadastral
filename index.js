@@ -28,15 +28,13 @@ if (process.env.GCLOUD !== 'nope' && process.env.USERDOMAIN_ROAMINGPROFILE !== '
       console.log(
         `gs://${bucketName}/${srcFilename} downloaded to ${destFilename}.`
       );
+      require('dotenv').config({path: './env.env'});
     })
     .catch(err => {
       console.error('ERROR:', err);
     });
   // [END storage_download_file]
 }
-
-if (process.env.NODE_ENV !== 'production') require('dotenv').config({path: './env.env'})
-
 
 const path = require('path');
 var port = process.env.PORT || 8000
