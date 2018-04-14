@@ -19,7 +19,7 @@ files/**
 .DS_Store
 
 # Docker
-Dockerfile
+#Dockerfile
 docker-compose.yml
 
 api_key.py
