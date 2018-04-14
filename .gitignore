@@ -2,13 +2,15 @@
 node_modules
 npm-debug.log
 
-!files/temp
-!files/temp/
 
-files/*
+
 !files/.gitkeep
-files/temp/*
+
+files/**
+!files/**/
 !files/temp/.gitkeep
+
+
 
 # Local development
 *.env
