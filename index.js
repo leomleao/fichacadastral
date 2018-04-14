@@ -1,12 +1,3 @@
-// Require which and child_process
-const which = require('which');
-const spawn = require('child_process').spawn;
-// Find npm in PATH
-const npm = which.sync('npm');
-// Execute
-const noErrorSpawn = spawn(npm, ['install']);
-
-
 const express = require('express');
 const fileUpload = require('express-fileupload');
 const bodyParser = require('body-parser');

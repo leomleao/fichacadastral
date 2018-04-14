@@ -8,7 +8,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "node test.js"
+    "test": "node test.js",
+    "prestart": "sudo apt-get pdftk"
   },
   "dependencies": {
     "@google-cloud/storage": "^1.6.0",

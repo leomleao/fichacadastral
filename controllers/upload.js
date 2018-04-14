@@ -134,7 +134,7 @@ exports.form = (req, res) => {
 
 
 	pdfFiller.fillFormWithOptions( sourcePDF, destinationPDF, data, true, './files/temp', function(err) {
-	    // if (err) throw err;
+	    if (err) throw err;
 
 		// using SendGrid's v3 Node.js Library
 		// https://github.com/sendgrid/sendgrid-nodejs
@@ -170,7 +170,10 @@ exports.form = (req, res) => {
 				  }
 			  ]
 			};
-			sgMail.send(msg);
+			sgMail
+			  .send(msg)
+			  .then(() => console.log('Mail sent successfully'))
+			  .catch(error => console.error(error.toString()));
 
 		    return res.status(200).send(JSON.stringify('success'));       
 	         
