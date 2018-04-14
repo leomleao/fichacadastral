@@ -58,8 +58,6 @@ const uploadController = require('./controllers/upload');
 
 const app = express();
 
-app.set('views', path.join(__dirname, 'views'));
-
 app.use(fileUpload());
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -83,6 +81,9 @@ app.get('/check/:cnpj', uploadController.check);
 app.post('/uploadFile', uploadController.uploadFile );
 
 app.post('/form', urlencodedParser, uploadController.form );
+
+app.get('/test', urlencodedParser, homeController.test );
+app.get('/pageReview', urlencodedParser, homeController.pageReview );
 
 
 

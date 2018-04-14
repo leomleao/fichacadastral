@@ -150,7 +150,7 @@ exports.form = (req, res) => {
 		  from: 'test@example.com',
 		  subject: 'Ficha cadastral do cliente ' + req.body.cnpj,
 		  text: req.body.nome,
-		  html: '<strong>'req.body.nome'</strong>',
+		  html: '<strong>' + req.body.nome + '</strong>',
 		};
 		sgMail.send(msg);
 
