@@ -1,7 +1,21 @@
-const uuidv4 = require('uuid/v4');
-const path   = require('path');
+const uuidv4  = require('uuid/v4');
+const path    = require('path');
+const request = require('request'); // https://www.npmjs.com/package/request
 
 
+const Sequelize = require('sequelize'); 
+// Or you can simply use a connection uri
+
+// const sequelize = new Sequelize(process.env.SQL_DATABASE, process.env.SQL_USER, process.env.SQL_PASSWORD, {
+//   dialect: 'mysql',
+//   operatorsAliases: false,
+//   pool: {
+//     max: 5,
+//     min: 0,
+//     acquire: 30000,
+//     idle: 10000
+//   },
+// });
 
 /**
  * GET /
@@ -24,6 +38,44 @@ exports.pageReview = (req, res) => {
   	let uuid = uuidv4();
   	var date = new Date();
 	var current_hour = date.getHours();
+
+
+	const sequelize = new Sequelize('mysql://'+ process.env.SQL_USER + ':' + process.env.SQL_PASSWORD + '@127.0.0.1:3306/' + process.env.SQL_DATABASE);
+	const company = sequelize.import(path.join(__dirname, '../models/company'));
+
+	// sequelize
+	//   .authenticate()
+	//   .then(() => {
+	//     console.log('Connection has been established successfully.');
+	//   })
+	//   .catch(err => {
+	//     console.error('Unable to connect to the database:', err);
+	// });
+	//   Post.findAll({
+	//   where: {
+	//     authorId: 2
+	//   }
+	// });
+
+	// // force: true will drop the table if it already exists
+	// company.sync({force: true}).then(() => {
+	//   // Table created
+	//   return company.create({
+	//     uuid: '91ui2jd9u12hd9u12dh8129udh9u12hdd912hd912d',
+	//     status: 'test'
+	//   });
+	// });
+
+	company.findOne({
+		  where: {
+		    uuid: '91ui2jd9u12hd9u12dh8129udsh9u12hdd912hd912d'
+		  }
+		}).then(users => {
+	  console.log(users)
+	  sequelize.close();
+	})
+
+
 
 	console.error(current_hour);
 
@@ -125,3 +177,30 @@ exports.test = (req, res) => {
  //    });
 
 };
+
+/**
+ * GET /
+ * Home page.
+ */
+exports.test2 = (req, res) => {
+	const sequelize = new Sequelize('mysql://'+ process.env.SQL_USER + ':' + process.env.SQL_PASSWORD + '@127.0.0.1:3306/' + process.env.SQL_DATABASE);
+	const company = sequelize.import(path.join(__dirname, '../models/company'));
+
+	company.update({
+		status:"2323"
+	},
+	{
+		where: {
+  			uuid: '7b43bef6-80cc-4a9e-bb65-feca20ca7ss001'
+  		},
+	})
+
+return res.status(200).send('teste');
+
+    
+};
+
+
+
+
+ 	

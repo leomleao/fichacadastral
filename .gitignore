@@ -26,3 +26,7 @@ api_key.py
 api_key.key
 client-secret.json
 credentials.tar.gz
+
+#cloud_sql_proxy -instances=omega-zeta:southamerica-east1:mount-cylene=tcp:3306 -credential_file=../omega-zeta-afcf1441b7ad.json
+cloud_sql_proxy.exe
+

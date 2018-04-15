@@ -34,6 +34,8 @@ if (process.env.GCLOUD !== 'nope' && process.env.USERDOMAIN_ROAMINGPROFILE !== '
       console.error('ERROR:', err);
     });
   // [END storage_download_file]
+} else {
+  require('dotenv').config({path: './env.env'});
 }
 
 const path = require('path');
@@ -42,8 +44,7 @@ var port = process.env.PORT || 8000
 const cnpjController = require('./controllers/cnpj');
 const homeController = require('./controllers/home');
 const uploadController = require('./controllers/upload');
-
-
+const cronController = require('./controllers/cron');
 
 const app = express();
 
@@ -70,9 +71,14 @@ app.post('/uploadFile', uploadController.uploadFile );
 
 app.post('/form',  uploadController.form );
 
-app.get('/test',  homeController.test );
+
+app.get('/test',  homeController.test2 );
 app.get('/pageReview',  homeController.pageReview );
 
+
+//CRON tasks
+app.post('/cron/email',  cronController.email );
+app.post('/cron/checkSentMails',  cronController.checkSentMails );
 
 
 app.listen(port, function() {

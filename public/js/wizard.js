@@ -288,12 +288,10 @@ var WizardDemo = function () {
                         console.info(response);
                         mApp.unprogress(btn);
                         //mApp.unblock(formEl);
-
                         swal({
-                            "title": "", 
-                            "text": "Sua ficha cadastral foi enviada com sucesso!", 
-                            "type": "success",
-                            "confirmButtonClass": "btn btn-secondary m-btn m-btn--wide"
+                            html: 'Sua ficha cadastral foi enviada com sucesso!<br><a href="' + response.formURL + '">Baixar</a>', 
+                            type: 'success',
+                            confirmButtonClass: 'btn btn-secondary m-btn m-btn--wide'
                         });
                     }, error: function(response){
                         console.info(response);

@@ -1,0 +1,7 @@
+cron:
+- description: "daily email service job"
+  url: /cron/email
+  schedule: every 10 minutes
+  - description: "daily email service job"
+  url: /cron/checkSentMails
+  schedule: every 5 minutes
