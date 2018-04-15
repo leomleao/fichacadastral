@@ -36,7 +36,7 @@ var WizardDemo = function () {
 
         // field to upload files
         var dropZone = new Dropzone(".dropzone", {
-            url: "/uploadFile",
+            url: "/uploadFile/" + uuid,
             addRemoveLinks: true,
             maxFiles: 10,
             maxFilesize: 3, // MB
@@ -289,21 +289,23 @@ var WizardDemo = function () {
                         mApp.unprogress(btn);
                         //mApp.unblock(formEl);
                         swal({
-                            html: 'Sua ficha cadastral foi enviada com sucesso!<br><a href="' + response.formURL + '">Baixar</a>', 
+                            html: response.message, 
                             type: 'success',
                             confirmButtonClass: 'btn btn-secondary m-btn m-btn--wide'
                         });
                     }, error: function(response){
                         console.info(response);
                         mApp.unprogress(btn);
-                        //mApp.unblock(formEl);
 
-                        swal({
-                        "title": "", 
-                        "text": "Houve alguum problema no envio desse formulário. Por favor, nos contate via email: adm.br@wago.com", 
-                        "type": "error",
-                        "confirmButtonClass": "btn btn-secondary m-btn m-btn--wide"
-                        });
+                        var options = {
+                            title: "", 
+                            html: response.message, 
+                            type: "error",
+                            confirmButtonClass: "btn btn-secondary m-btn m-btn--wide"
+                        }
+                     //mApp.unblock(formEl);
+
+                        swal(options);
                     },
 
                 });

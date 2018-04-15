@@ -67,7 +67,7 @@ app.get('/', homeController.index);
 
 app.get('/check/:cnpj', uploadController.check);
 
-app.post('/uploadFile', uploadController.uploadFile );
+app.post('/uploadFile/:uuid', uploadController.uploadFile );
 
 app.post('/form',  uploadController.form );
 
@@ -77,8 +77,8 @@ app.get('/pageReview',  homeController.pageReview );
 
 
 //CRON tasks
-app.post('/cron/email',  cronController.email );
-app.post('/cron/checkSentMails',  cronController.checkSentMails );
+app.get('/cron/email',  cronController.email );
+app.get('/cron/checkSentMails',  cronController.checkSentMails );
 
 
 app.listen(port, function() {

@@ -56,24 +56,24 @@ exports.pageReview = (req, res) => {
 	//     authorId: 2
 	//   }
 	// });
+	const config = sequelize.import(path.join(__dirname, '../models/configuration'));
 
-	// // force: true will drop the table if it already exists
-	// company.sync({force: true}).then(() => {
-	//   // Table created
-	//   return company.create({
-	//     uuid: '91ui2jd9u12hd9u12dh8129udh9u12hdd912hd912d',
-	//     status: 'test'
-	//   });
-	// });
+	// force: true will drop the table if it already exists
+	config.sync({force: true}).then(() => {	  // Table created
+	  return config.create({
+		    type: 'email',
+		    value: 'leonardo.leao@wago.com'
+		  });
+	});
 
-	company.findOne({
-		  where: {
-		    uuid: '91ui2jd9u12hd9u12dh8129udsh9u12hdd912hd912d'
-		  }
-		}).then(users => {
-	  console.log(users)
-	  sequelize.close();
-	})
+	// company.findOne({
+	// 	  where: {
+	// 	    uuid: '91ui2jd9u12hd9u12dh8129udsh9u12hdd912hd912d'
+	// 	  }
+	// 	}).then(users => {
+	//   console.log(users)
+	//   sequelize.close();
+	// })
 
 
 

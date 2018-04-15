@@ -99,14 +99,11 @@ exports.form = (req, res) => {
 	let fullUrl = req.protocol + '://' + req.get('host');
 	
 
-	const sequelize = new Sequelize('mysql://'+ process.env.SQL_USER + ':' + process.env.SQL_PASSWORD + '@127.0.0.1:3306/' + process.env.SQL_DATABASE, { operatorsAliases: false });
-	const company = sequelize.import(path.join(__dirname, '../models/company'));
+	const sequelize  = new Sequelize('mysql://'+ process.env.SQL_USER + ':' + process.env.SQL_PASSWORD + '@127.0.0.1:3306/' + process.env.SQL_DATABASE, { operatorsAliases: false });
+	const company    = sequelize.import(path.join(__dirname, '../models/company'));
+	const companySec = sequelize.import(path.join(__dirname, '../models/company'));
 
 	var data = req.body;
-
-	var test = 0;
-
-	console.info(test);
 
 	company
   		.findOrCreate({
@@ -117,79 +114,53 @@ exports.form = (req, res) => {
   			
   		})
   		.spread((company, created) => {
-   		 	// if (!created){
-   		 	// 	throw new Error('duplicate');
-   		 	// 	console.info('larou');
-   		 	// }
+   		 	if (!created){
+   		 		throw new Error('duplicateForm');
+   		 		console.error('duplicateForm');
+   		 	}
    		 	return company
 	
-		}).then((company) => {
-			test++;
-			console.info('1');			
-			console.info(test);
-
-			console.info(data);
-
-			fillForm(data, callback2)
-
-			function callback2(status){
-				test++;
-				console.info('2');
-				console.info(test);
-				if (status) {
-					throw new Error('formError');	
-				} 
-				company.update({
-					pdfCreated: data.uuid + '_#_ficha-cadastral.pdf'
-				}).then(() => {
-					sequelize.close();
-				})
-				return true
-			}
-
-			
-		}).then((fillForm) => {
-			test++;
-			console.info('3');
-			console.info(test);
-			copyFormToCloud(data, callback);
-
-			function callback(formUrl){
-				test++;
-				console.info('4');
-				console.info(test);
-				console.info(formUrl);
-				if (formUrl){					
-					return res.status(200).send(JSON.stringify({
-								'status' : 'success',
-								'message' : 'Saved in database!',
-								'formURL' : formUrl
-					}));
-				} else {
-					return res.status(200).send(JSON.stringify({
-								'status' : 'success',
-								'message' : 'Saved in database!'
-					}));
-	  			}
+		})
+		// .then((company)=> checkDuplicate(data.cnpj, company))
+		.then((company)=> fillForm(data, company))
+		.then(()=> copyFormToCloud(data))
+		.then((result) => {	
+			if (result){					
+				return res.status(200).send(JSON.stringify({
+							'status' : 'success',
+							'message' : 'Sua ficha cadastral foi enviada com sucesso!<br><a href="' + result + '">Baixar</a>'
+				}));
+			} else {
+				return res.status(200).send(JSON.stringify({
+							'status' : 'success',
+							'message' : 'Sua ficha cadastral foi enviada com sucesso!'
+				}));
   			}
-			
-		}).catch((error) => {
+		})		
+		.catch((error) => {
 			console.log(error.name);
 			console.log(error.message);
-			if (error.message === 'duplicate'){
+			if (error.message === 'duplicateForm'){
+				return res.status(200).send(JSON.stringify({
+						    'status' : 'success',
+						    'message' : 'Ja recebemos seu formulario. Agora e so aguardar!'
+				}));
+			} else 	if (error.name === 'duplicateCompany'){
 				return res.status(400).send(JSON.stringify({
 						    'status' : 'error',
-						    'message' : 'Duplicate entry!'
+						    'message' : 'Notamos que ja existe um formulario pendente de sua empresa conosco :). Caso esse seja uma atualizacao cadastral confirme o envio clicando no botao abaixo:<br><a href="' + fullUrl + '/release/' + uuid + '">Confirmar Atualiacao</a>'
 				}));
-			} else 	if (error.name === 'formError'){
-				return res.status(400).send(JSON.stringify({
+			}else 	if (error.name === 'formError'){
+				return res.status(500).send(JSON.stringify({
 						    'status' : 'error',
-						    'message' : 'Form not created!'
+						    'message' : 'Houve alguum problema na criacao desse formulário. Por favor, nos contate via email: adm.br@wago.com'
 				}));
+			} else 	if (error.name === 'gCloudError'){
+				console.error(error); 
 			} else {
 				return res.status(500).send(JSON.stringify({
 						    'status' : 'error',
-						    'message' : 'We don\'t know what happened, but it happened!',
+						    'message' : 'Houve alguum problema no envio desse formulário. Por favor, nos contate via email: adm.br@wago.com',
 						    'errorMessage': error
 				}));
 			}
@@ -197,8 +168,12 @@ exports.form = (req, res) => {
 
 
 	function copyFormToCloud(formData, callback){
-		var filename = formData.uuid + '_#_ficha-cadastral.pdf';
-		var destinationPDF =  path.resolve(__dirname, '../files/' + filename);
+
+		// Return new promise 
+	    return new Promise(function(resolve) {
+	    	const filename = formData.uuid + '_#_ficha-cadastral.pdf';
+			const destinationPDF =  path.resolve(__dirname, '../files/' + filename);
+
 			storage
 			    .bucket(bucketName)
 			    .upload(destinationPDF)
@@ -208,40 +183,91 @@ exports.form = (req, res) => {
 				  		.file(formData.uuid + '_#_ficha-cadastral.pdf')
 				  		.makePublic()
 					  	.then(() => {
-					   		console.log(`gs://${bucketName}/${filename} is now public.`);
-					    	return callback (`https://storage.googleapis.com/${bucketName}/${filename}`);
+					  		file
+						  		.findOrCreate({
+						  			where: {
+						  				uuid: formData.uuid
+						  			},
+						  			defaults: {
+						  				filename: filename
+						  			}		  				
+						  			
+						  		})
+						  		.then(() => {
+							   		console.log(`gs://${bucketName}/${filename} is now public.`);
+							    	resolve(`https://storage.googleapis.com/${bucketName}/${encodeURIComponent(filename)}`);
+				  			
+						  		})
+						  		.catch(err =>{
+						  			console.error('ERROR:', err);
+						  		});
 					    })
 					    .catch(err => {
 					    	console.error('ERROR with form upload:', err);
-					    	return callback (false);
+					    	resolve(false);
 						});	
 
 			}) 
 		    .catch(err => {
 		    	console.error('ERROR with form upload:', err);
-		    	return callback (false);
-		  	});	
-
+		    	throw new Error ('gCloudError')
+		  	});
+	    });
 
 	}
 
 
-	function fillForm(formData, callback){
+	function fillForm(formData, company){
 
-		var sourcePDF = path.resolve(__dirname, '../public/form-ficha-cadastral-WAGO.pdf');
-		var destinationPDF =  path.resolve(__dirname, '../files/' + formData.uuid + '_#_ficha-cadastral.pdf');
-		
-		if ('atividade_principal' in formData) {
-			formData.atividade_principal = formData.atividade_principal[0].code + ' - ' + formData.atividade_principal[0].text;
-		}
-		pdfFiller.fillFormWithOptions( sourcePDF, destinationPDF, formData, true, './files/temp', function(err) {
+		// Return new promise 
+	    return new Promise(function(resolve) {
+	    	
+			var sourcePDF = path.resolve(__dirname, '../public/form-ficha-cadastral-WAGO.pdf');
+			var destinationPDF =  path.resolve(__dirname, '../files/' + formData.uuid + '_#_ficha-cadastral.pdf');
+			
+			if ('atividade_principal' in formData) {
+				formData.atividade_principal = formData.atividade_principal[0].code + ' - ' + formData.atividade_principal[0].text;
+			}
+			pdfFiller.fillFormWithOptions( sourcePDF, destinationPDF, formData, true, './files/temp', function(err) {
 
-		    if (err) return callback(true);		    
+			    if (err) throw new Error('formError');	
 
-		    return callback(false);
+			    company.update({
+					pdfCreated: formData.uuid + '_#_ficha-cadastral.pdf'
+				}).then(() => {
+					sequelize.close();
+					resolve(destinationPDF);
+				})	    
 
-		});
+			   
+			});   	 	    
+	    })
 	}
+
+	function checkDuplicate(cnpj, company){
+		// Return new promise 
+	    return new Promise(function(resolve) {
+	    	companySec
+		  		.findOne({
+		  			where: {
+		  				cnpj: cnpj
+		  			} 
+		  		}).then(result => {
+				  	if (result && result.dataVales.emailSent !== 'approvedUpdate'){
+				  		result.updateAttributes({
+					        emailSent: 'duplicateCompany'
+					    })
+					    .then(() =>{					    	
+				  			throw new Error('duplicateCompany')
+				  			resolve(company);
+					    })
+				  	} 
+				})				
+			   	 	    
+	    })
+	}
+
+
 
 	function cleanData(dataObj, model){
 
@@ -268,6 +294,7 @@ exports.form = (req, res) => {
  * upload file.
  */
 exports.uploadFile = (req, res) => {
+	let uuid = req.params.uuid;
 	let fullUrl = req.protocol + '://' + req.get('host');
   	if (!req.files)
 		return res.status(400).send(JSON.stringify({
@@ -295,6 +322,31 @@ exports.uploadFile = (req, res) => {
 			  .bucket(bucketName)
 			  .upload(folderDest)
 			  .then(() => {
+			  	const sequelize = new Sequelize('mysql://'+ process.env.SQL_USER + ':' + process.env.SQL_PASSWORD + '@127.0.0.1:3306/' + process.env.SQL_DATABASE, { operatorsAliases: false });
+				const file = sequelize.import(path.join(__dirname, '../models/file'));
+
+				file
+			  		.findOrCreate({
+			  			where: {
+			  				uuid: uuid
+			  			},
+			  			defaults: {
+			  				filename: uploadedFile.name
+			  			}		  				
+			  			
+			  		})
+			  		.then(() => {
+
+
+			  		})
+			  		.catch(err =>{
+			  			console.error('ERROR:', err);
+			  		});
+
+
+
+
+
 			    console.log(`${uploadedFile.name} uploaded to ${bucketName}.`);
 			  })
 			  .catch(err => {
