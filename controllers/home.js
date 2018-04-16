@@ -185,10 +185,9 @@ exports.test = (req, res) => {
 exports.test2 = (req, res) => {
 
 	const sequelize = new Sequelize(process.env.SQL_DATABASE, process.env.SQL_USER, process.env.SQL_PASSWORD, {
-		host: '/cloudsql/omega-zeta:southamerica-east1:mount-cylene',
 		dialect: 'mysql',
 		dialectOptions: {	      
-	    	socketPath: fs.readFileSync(__dirname + '/mysql-ca-master.crt')
+	    	socketPath: '/cloudsql/omega-zeta:southamerica-east1:mount-cylene'
 	    },
 	    port: 5432	
 	});
