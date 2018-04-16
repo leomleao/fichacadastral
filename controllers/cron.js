@@ -4,8 +4,6 @@ const ejs     = require('ejs');
 const fs      = require('fs');
 
 
-
-
 // Imports the Google Cloud client library
 const Storage    = require('@google-cloud/storage');
 
@@ -45,7 +43,6 @@ const Sequelize  = require('sequelize');
  * send emails job
  */
 exports.email = (req, res) => {
-
 
 	const sequelize = new Sequelize('mysql://'+ process.env.SQL_USER + ':' + process.env.SQL_PASSWORD + '@127.0.0.1:3306/' + process.env.SQL_DATABASE, { operatorsAliases: false });
 	const company   = sequelize.import(path.join(__dirname, '../models/company'));

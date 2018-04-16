@@ -3,40 +3,42 @@ const fileUpload = require('express-fileupload');
 const bodyParser = require('body-parser');
 
 
-if (process.env.GCLOUD !== 'nope' && process.env.USERDOMAIN_ROAMINGPROFILE !== 'DESKTOP-A7H495I' && process.env.COMPUTERNAME !== 'PC226276' ) {
-  // Imports the Google Cloud client library
-  const Storage = require('@google-cloud/storage');
+// if (process.env.GCLOUD !== 'nope' && process.env.USERDOMAIN_ROAMINGPROFILE !== 'DESKTOP-A7H495I' && process.env.COMPUTERNAME !== 'PC226276' ) {
+//   // Imports the Google Cloud client library
+//   const Storage = require('@google-cloud/storage');
 
-  // Creates a client
-  const storage = new Storage();
+//   // Creates a client
+//   const storage = new Storage();
 
-  const bucketName = 'secrets-of-olympus';
-  const srcFilename = '.env';
-  const destFilename = './env.env';
+//   const bucketName = 'secrets-of-olympus';
+//   const srcFilename = '.env';
+//   const destFilename = './env.env';
 
-  const options = {
-    // The path to which the file should be downloaded, e.g. "./file.txt"
-    destination: destFilename,
-  };
+//   const options = {
+//     // The path to which the file should be downloaded, e.g. "./file.txt"
+//     destination: destFilename,
+//   };
 
-  // Downloads the file
-  storage
-    .bucket(bucketName)
-    .file(srcFilename)
-    .download(options)
-    .then(() => {
-      console.log(
-        `gs://${bucketName}/${srcFilename} downloaded to ${destFilename}.`
-      );
-      require('dotenv').config({path: './env.env'});
-    })
-    .catch(err => {
-      console.error('ERROR:', err);
-    });
-  // [END storage_download_file]
-} else {
-  require('dotenv').config({path: './env.env'});
-}
+//   // Downloads the file
+//   storage
+//     .bucket(bucketName)
+//     .file(srcFilename)
+//     .download(options)
+//     .then(() => {
+//       console.log(
+//         `gs://${bucketName}/${srcFilename} downloaded to ${destFilename}.`
+//       );
+//       require('dotenv').config({path: './env.env'});
+//     })
+//     .catch(err => {
+//       console.error('ERROR:', err);
+//     });
+//   // [END storage_download_file]
+// } else {
+//   require('dotenv').config({path: './env.env'});
+// }
+
+require('dotenv').config();
 
 const path = require('path');
 var port = process.env.PORT || 8000
