@@ -183,17 +183,22 @@ exports.test = (req, res) => {
  * Home page.
  */
 exports.test2 = (req, res) => {
-	const sequelize = new Sequelize('mysql://'+ process.env.SQL_USER + ':' + process.env.SQL_PASSWORD + '@127.0.0.1:3306/' + process.env.SQL_DATABASE);
-	const company = sequelize.import(path.join(__dirname, '../models/company'));
+	const sequelize = new Sequelize('mysql://'+ process.env.SQL_USER + ':' + process.env.SQL_PASSWORD + '@127.0.0.1:3306/' + process.env.SQL_DATABASE, { operatorsAliases: false });
 
-	company.update({
-		status:"2323"
-	},
-	{
-		where: {
-  			uuid: '7b43bef6-80cc-4a9e-bb65-feca20ca7ss001'
-  		},
-	})
+
+	const sequelize = new Sequelize(process.env.SQL_DATABASE, process.env.SQL_USER, process.env.SQL_PASSWORD, {
+		host: '/cloudsql/omega-zeta:southamerica-east1:mount-cylene',
+		dialect: 'mysql',
+	});
+
+	sequelize
+	  .authenticate()
+	  .then(() => {
+	    console.log('Connection has been established successfully.');
+	  })
+	  .catch(err => {
+	    console.error('Unable to connect to the database:', err);
+	});
 
 return res.status(200).send('teste');
 
