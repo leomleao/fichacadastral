@@ -6,7 +6,6 @@ const path              = require('path');
 const request           = require('request'); // https://www.npmjs.com/package/request
 const ejs               = require('ejs');
 
-
 // using SendGrid's v3 Node.js Library
 // https://github.com/sendgrid/sendgrid-nodejs
 const sgMail = require('@sendgrid/mail');
@@ -145,17 +144,17 @@ exports.form = (req, res) => {
 						    'status' : 'success',
 						    'message' : 'Ja recebemos seu formulario. Agora e so aguardar!'
 				}));
-			} else 	if (error.name === 'duplicateCompany'){
+			} else 	if (error.message === 'duplicateCompany'){
 				return res.status(400).send(JSON.stringify({
 						    'status' : 'error',
 						    'message' : 'Notamos que ja existe um formulario pendente de sua empresa conosco :). Caso esse seja uma atualizacao cadastral confirme o envio clicando no botao abaixo:<br><a href="' + fullUrl + '/release/' + uuid + '">Confirmar Atualiacao</a>'
 				}));
-			}else 	if (error.name === 'formError'){
+			}else 	if (error.message === 'formError'){
 				return res.status(500).send(JSON.stringify({
 						    'status' : 'error',
 						    'message' : 'Houve alguum problema na criacao desse formulário. Por favor, nos contate via email: adm.br@wago.com'
 				}));
-			} else 	if (error.name === 'gCloudError'){
+			} else 	if (error.message === 'gCloudError'){
 				console.error(error); 
 			} else {
 				return res.status(500).send(JSON.stringify({

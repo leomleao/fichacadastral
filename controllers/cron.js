@@ -1,5 +1,9 @@
-const request    = require('request'); // https://www.npmjs.com/package/request
-const path       = require('path');
+const request = require('request'); // https://www.npmjs.com/package/request
+const path    = require('path');
+const ejs     = require('ejs');
+const fs      = require('fs');
+
+
 
 
 // Imports the Google Cloud client library
@@ -20,6 +24,20 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 // Connection to database
 const Sequelize  = require('sequelize'); 
+
+//PROMISE WITH TWO FUNCTIONS MIGHT BE USEFUL 
+
+// function getExample() {
+//     var a = promiseA(…);
+//     var b = a.then(function(resultA) {
+//         // some processing
+//         return promiseB(…);
+//     });
+//     return Promise.all([a, b]).then(function([resultA, resultB]) {
+//         // more processing
+//         return // something using both resultA and resultB
+//     });
+// }
 
 
 /**
@@ -52,25 +70,64 @@ exports.email = (req, res) => {
 		// const formPDF = fs.readFileSync(destinationPDF);
 		// const base64File = new Buffer(formPDF).toString('base64');
 
-	// initialize()								// {'emailRecipients':'emailRecipients'}
-	// .then(chainObj => getCompanies (chainObj))	// {'emailRecipients':'emailRecipients', 'companies': 'query from Sequelize'}
+	initialize()								// {'emailRecipients':'emailRecipients'}
+	.then(chainObj => getCompanies (chainObj))	// {'emailRecipients':'emailRecipients', 'companies': 'query from Sequelize'}
 	// .then(chainObj => getFiles (chainObj)) 		// {'emailRecipients':'emailRecipients', 'companies': 'query from Sequelize', 'files'" @array with files name"}
-	// .then(chainObj => sendMail (chainObj))
-	// // .then(results => test7 (results))
-	// // .then(results => test1 (results))
-	// .then((test) =>{
-	// 	console.info(test);
-	// })
-	// .catch(err =>{
-	// 	console.info(err);
+	.then(chainObj => queueMails(chainObj))
+	.then((response) =>{
+		if(!response) {
+			console.info("All mail have been sent!")
+			return res.status(200).send(JSON.stringify({
+						    'status' : 'success',
+						    'message' : 'All mails have already been sent!'
+			}));
+		}		
+		return res.status(200).send(JSON.stringify({
+		    'status' : 'success',
+		    'message' : response
+		}));
+	})
+	.catch(err =>{
+		console.info(err);		
+		return res.status(500).send(JSON.stringify({
+				    'status' : 'error',
+				    'message' : 'Bad stuff happens! :/ ',
+				    'errorMessage': err
+		}));		
 
-	// });
+	});
 
-	sendEmail();
+	// var test = ['58cec16b-5868-4b09-98ae-87c842e704fd_#_Certificates.pdf' , '58cec16b-5868-4b09-98ae-87c842e704fd_#_ficha-cadastral.pdf']
+	
+
+	// prepareAttachments(test);
+
+	function queueMails(chainObj) {
+		if (!chainObj.companies || chainObj.companies.length === 0) {		
+			return false
+		} else {
+			return new Promise(function(resolve) {
+				var mailQueue = [];	
+				console.info('Start of list - Mails about to be sent!')	
+				for (var i = chainObj.companies.length - 1; i >= 0; i--) {
+					console.info(chainObj.companies[i].dataValues.nome);
+					mailQueue.push(sendMail(chainObj.emailRecipients, chainObj.companies[i].dataValues));
+				}
+				console.info('End of list - Mails about to be sent!')				
+				Promise.all(mailQueue)
+					.then(() => {
+						resolve('Mails sent successfully!');
+					})
+					.catch(err => {
+						console.error(err);
+					})
+			})
+		}
+	}
 
 
 	function initialize() {
-		return new Promise(function(resolve, reject) {
+		return new Promise(function(resolve) {
 	     // Do async job
 	        config.findOne({
 			  where: {
@@ -97,9 +154,10 @@ exports.email = (req, res) => {
 			    emailSent: null
 			  }
 			})
-			.then((companies) =>{
+			.then((companies) =>{				
 				chainObj.companies = companies;
-				resolve(chainObj);
+				resolve(chainObj);					
+				
 			})
 			.catch(err => {
 				console.error(err);
@@ -109,20 +167,13 @@ exports.email = (req, res) => {
 
 
 
-	function getFiles(chainObj) {
-		companies = chainObj.companies;
-		query = [];		    
-	    // Return new promise 
-	    return new Promise(function(resolve) {
-	    	for (var i = companies.length - 1; i >= 0; i--) {
-	    		console.info(companies[i].dataValues.uuid);
-	    		query.push(companies[i].dataValues.uuid);
-	    	}
-	    	console.info(query);
+	function getFiles(uuid) {
+	    
+	    return new Promise(function(resolve) {	    	
 
 	    	file.findAll({
 			  where: {
-			    uuid: query
+			    uuid: uuid
 			  }
 			})
 			.then((files) => {
@@ -138,8 +189,7 @@ exports.email = (req, res) => {
 				console.info('End of list - Files about to be downloaded.')				
 				Promise.all(downloadQueue)
 					.then(() => {
-						chainObj.files = files;
-						resolve(chainObj);		
+						resolve(files);		
 					})
 					.catch(err => {
 						console.error(err);
@@ -152,51 +202,66 @@ exports.email = (req, res) => {
 	}
 
 
-	function sendEmail(chainObj){	
+
+	//
+	// @array Email recipients
+	// @object form data
+	//
+	function sendMail(mailRecipients, data){	
 
 		return new Promise(function(resolve) {	
-
 			const template = path.join(__dirname, '../views/pages/template-email.ejs');
+			var attachments = [];
+			getFiles(data.uuid)
+				// @array of files
+				.then((files) => prepareAttachments(files))
+				.then((result) => {
+					attachments = result;
 
-			ejs.renderFile(template, {
-				time:time,
-				data:data
-			})
-			.then((html) => {
+					ejs.renderFile(template, {
+						time: time,
+						data: data
+					})
+					.then((html) => {
+						// A PROMISE THAT IS STARTING TO BECOME A CALLBACK HELL WTF
+						var msg = {
+						  to: mailRecipients,
+						  from: 'test@example.com',
+						  subject: 'Ficha cadastral do cliente ' + req.body.cnpj,
+						  html: html,
+						  reply_to: {
+						  	email: 'adm.br@wago.com'
+						  },
+						  attachments: attachments
+						};
 
+						sgMail
+						    .send(msg)
+						    .then((result) => {
+						    	console.log('Mail sent successfully');
+						    	// console.log(result[0].caseless.dict['x-message-id']);
+						    	company.findOne({
+						    		where: {
+						    			uuid: data.uuid
+						    		}
+						    	}).then((company) => {
+						    		company.update({
+									    emailSent: result[0].caseless.dict['x-message-id']
+									}).then(() => {
+										resolve();
+									})
+						    	}) 
+						  	})
+						    .catch(err => {
+						    	console.error("ERROR: " + err);
+						    });
 
-			})
-			.catch(err =>{
-				console.error("ERROR: " + err);
-			});
-
-		});
-	      
-
-			// var msg = {
-			//   to: 'leonardo.leao@wago.com',
-			//   from: 'test@example.com',
-			//   subject: 'Ficha cadastral do cliente ' + req.body.cnpj,
-			//   html: html,
-			//   reply_to: {
-			//   	email: 'adm.br@wago.com'
-			//   },
-			//   attachments:[
-			// 	  {
-			//   		content: base64File,
-			//   		type: 'application/pdf',
-			//   		filename: 'ficha-cadastral.pdf'		  		
-			// 	  }
-			//   ]
-			// };
-
-			// sgMail
-			//     .send(msg)
-			//     .then((result) => {console.log('Mail sent successfully');
-			//   		return true;  
-			//   	})
-			//     .catch(error => console.error(error.toString()));
-		  
+					})
+					.catch(err =>{
+						console.error("ERROR: " + err);
+					});
+				})
+		});  		  
 	}
 
 
@@ -214,16 +279,18 @@ exports.email = (req, res) => {
 	//   ]
 
 
+
+
+
 	function encodeBase64(file) {
 		var filePath =  path.resolve(__dirname, '../files/' + file);
-		var file = fs.readFileSync(filePath);		
+		var readFile = fs.readFileSync(filePath);		
 		return new Promise((resolve) => {
-			var base64File = new Buffer(formPDF).toString('base64');
+			var base64File = new Buffer(readFile).toString('base64');
 			// resolve(base64File)
-			resolve(file);
+			resolve({content: base64File, filename: file});
 		});
 	}
-
 
 
 	function prepareAttachments(files) {
@@ -232,14 +299,13 @@ exports.email = (req, res) => {
 
 				for (var i = files.length - 1; i >= 0; i--) {
 					console.info(files[i]);
-					files.push(files[i].dataValues.filename);
-					codingQueue.push(encodeBase64(files[i].dataValues.filename));
+					console.info('for123');					
+					files.push(files[i]);
+					codingQueue.push(encodeBase64(files[i]));
 				}
 				Promise.all(codingQueue)
-					.then((results) => {
-						// chainObj.files = files;
-						console.info(results);		
-						// resolve(results);		
+					.then((results) => {							
+						resolve(results);		
 					})
 					.catch(err => {
 						console.error(err);
