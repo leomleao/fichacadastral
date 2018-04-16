@@ -41,7 +41,7 @@ const bodyParser = require('body-parser');
 require('dotenv').config();
 
 const path = require('path');
-var port = process.env.PORT || 8000
+var port = process.env.PORT || 8080
 
 const cnpjController = require('./controllers/cnpj');
 const homeController = require('./controllers/home');
