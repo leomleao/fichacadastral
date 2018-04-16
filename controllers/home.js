@@ -183,8 +183,6 @@ exports.test = (req, res) => {
  * Home page.
  */
 exports.test2 = (req, res) => {
-	const sequelize = new Sequelize('mysql://'+ process.env.SQL_USER + ':' + process.env.SQL_PASSWORD + '@127.0.0.1:3306/' + process.env.SQL_DATABASE, { operatorsAliases: false });
-
 
 	const sequelize = new Sequelize(process.env.SQL_DATABASE, process.env.SQL_USER, process.env.SQL_PASSWORD, {
 		host: '/cloudsql/omega-zeta:southamerica-east1:mount-cylene',
