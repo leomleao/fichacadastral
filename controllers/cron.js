@@ -234,7 +234,7 @@ exports.email = (req, res) => {
 						// A PROMISE THAT IS STARTING TO BECOME A CALLBACK HELL WTF
 						var msg = {
 						  to: mailRecipients,
-						  from: 'test@example.com',
+						  from: 'cadastro@identificacaowago.com.br',
 						  subject: 'Ficha cadastral do cliente ' + req.body.cnpj,
 						  html: html,
 						  reply_to: {
