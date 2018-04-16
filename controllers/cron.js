@@ -23,6 +23,15 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 // Connection to database
 const Sequelize  = require('sequelize'); 
 
+
+const sequelize = new Sequelize(process.env.SQL_DATABASE, process.env.SQL_USER, process.env.SQL_PASSWORD, {
+	dialect: 'mysql',
+	dialectOptions: {	      
+    	socketPath: '/cloudsql/omega-zeta:southamerica-east1:mount-cylene'
+    },
+    port: 5432	
+});
+
 //PROMISE WITH TWO FUNCTIONS MIGHT BE USEFUL 
 
 // function getExample() {
@@ -44,7 +53,9 @@ const Sequelize  = require('sequelize');
  */
 exports.email = (req, res) => {
 
-	const sequelize = new Sequelize('mysql://'+ process.env.SQL_USER + ':' + process.env.SQL_PASSWORD + '@127.0.0.1:3306/' + process.env.SQL_DATABASE, { operatorsAliases: false });
+	// const sequelize = new Sequelize('mysql://'+ process.env.SQL_USER + ':' + process.env.SQL_PASSWORD + '@127.0.0.1:3306/' + process.env.SQL_DATABASE, { operatorsAliases: false });
+
+
 	const company   = sequelize.import(path.join(__dirname, '../models/company'));
 	const file      = sequelize.import(path.join(__dirname, '../models/file'));
 	const config    = sequelize.import(path.join(__dirname, '../models/configuration'));

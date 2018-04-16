@@ -18,6 +18,14 @@ const Sequelize = require('sequelize');
 // const sequelize = new Sequelize('mysql://'+ process.env.SQL_USER + ':' + process.env.SQL_PASSWORD + '@127.0.0.1:3306/' + process.env.SQL_DATABASE, { operatorsAliases: false });
 // const company   = sequelize.import(path.join(__dirname, '../models/company'));
 
+const sequelize = new Sequelize(process.env.SQL_DATABASE, process.env.SQL_USER, process.env.SQL_PASSWORD, {
+	dialect: 'mysql',
+	dialectOptions: {	      
+    	socketPath: '/cloudsql/omega-zeta:southamerica-east1:mount-cylene'
+    },
+    port: 5432	
+});
+
 
 
 // Imports the Google Cloud client library
@@ -98,7 +106,8 @@ exports.form = (req, res) => {
 	let fullUrl = req.protocol + '://' + req.get('host');
 	
 
-	const sequelize  = new Sequelize('mysql://'+ process.env.SQL_USER + ':' + process.env.SQL_PASSWORD + '@127.0.0.1:3306/' + process.env.SQL_DATABASE, { operatorsAliases: false });
+	// const sequelize  = new Sequelize('mysql://'+ process.env.SQL_USER + ':' + process.env.SQL_PASSWORD + '@127.0.0.1:3306/' + process.env.SQL_DATABASE, { operatorsAliases: false });
+	
 	const company    = sequelize.import(path.join(__dirname, '../models/company'));
 	const companySec = sequelize.import(path.join(__dirname, '../models/company'));
 
@@ -321,7 +330,8 @@ exports.uploadFile = (req, res) => {
 			  .bucket(bucketName)
 			  .upload(folderDest)
 			  .then(() => {
-			  	const sequelize = new Sequelize('mysql://'+ process.env.SQL_USER + ':' + process.env.SQL_PASSWORD + '@127.0.0.1:3306/' + process.env.SQL_DATABASE, { operatorsAliases: false });
+
+			  	// const sequelize = new Sequelize('mysql://'+ process.env.SQL_USER + ':' + process.env.SQL_PASSWORD + '@127.0.0.1:3306/' + process.env.SQL_DATABASE, { operatorsAliases: false });
 				const file = sequelize.import(path.join(__dirname, '../models/file'));
 
 				file
