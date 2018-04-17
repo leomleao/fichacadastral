@@ -116,10 +116,6 @@
                     <!--end: Form Wizard Head -->
         <!--begin: Form Wizard Form-->
                     <div class="m-wizard__form">
-                      <!--
-            1) Use m-form--label-align-left class to alight the form input lables to the right
-            2) Use m-form--state class to highlight input control borders on form validation
-          -->
                       <form class="m-form m-form--label-align-left- m-form--state-" id="m_form">
                         <input  type="text" name="uuid" id="uuid" value="<%= uuid %>" hidden/>
                         <!--begin: Form Body -->
@@ -141,7 +137,7 @@
                                       <label>
                                          * CNPJ
                                       </label>
-                                      <input  type="text" name="cnpj" id="cnpj" class="form-control"  placeholder=""/>
+                                      <input autocomplete="off" type="text" name="cnpj" id="cnpj" class="form-control m-input"  placeholder=""/>
                                       <span class="m-form__help">
                                         Por favor, preencha seu CNPJ
                                       </span>
@@ -151,7 +147,7 @@
                                       <label>
                                           Inscrição Estadual:
                                       </label>
-                                      <input  type="text" name="ie" id="ie" class="form-control m-input"  placeholder="" value="">
+                                      <input autocomplete="off" type="text" name="ie" id="ie" class="form-control m-input"  placeholder="" value="">
                                       <span class="m-form__help">
                                         caso possua, inclua a IE de sua empresa
                                       </span>                                 
@@ -164,7 +160,7 @@
                                       <label>
                                          * Razão Social:
                                       </label>
-                                      <input  type="text" name="nome" id="nome" class="form-control m-input"  placeholder="" value="">
+                                      <input autocomplete="organization" type="text" name="nome" id="nome" class="form-control m-input"  placeholder="" value="">
                                       <span class="m-form__help">
                                         Razão Social de sua empresa
                                       </span>
@@ -173,7 +169,7 @@
                                       <label>
                                           Fantasia:
                                       </label>
-                                      <input  type="text" name="fantasia" id="fantasia" class="form-control m-input"  placeholder="" value="">
+                                      <input autocomplete="organization" type="text" name="fantasia" id="fantasia" class="form-control m-input"  placeholder="" value="">
                                       <span class="m-form__help">
                                         nome fantasia de sua empresa
                                       </span>                                 
@@ -198,24 +194,24 @@
                                       <label>
                                         * CEP:
                                       </label>
-                                      <input type="text" name="cep" id="cep" class="form-control m-input" placeholder="" value="">
+                                      <input autocomplete="postal-code" type="text" name="cep" id="cep" class="form-control m-input" placeholder="" value="">
                                       <span class="m-form__help">
                                       
                                       </span>
                                     </div>
-                                    <div class="col-8 col-sm-6 col-md-7 col-lg-7">
+                                    <div class="col-7 col-sm-6 col-md-7 col-lg-7">
                                       <label>
                                         * Cidade:
                                       </label>
-                                      <input type="text" name="municipio" id="municipio" class="form-control m-input" placeholder="">
+                                      <input autocomplete="address-level2" type="text" name="municipio" id="municipio" class="form-control m-input" placeholder="">
                                       <span class="m-form__help">
                                       </span>
                                     </div>
-                                    <div class="col-4 col-sm-3 col-md-2 col-lg-2">
+                                    <div class="col-5 col-sm-3 col-md-2 col-lg-2">
                                       <label>
                                         * Estado:
                                       </label>
-                                      <select name="uf" id="uf" class="form-control m-input">
+                                      <select autocomplete="address-level1" name="uf" id="uf" class="form-control m-input">
                                         <option value="">
                                           Selecione
                                         </option>
@@ -305,19 +301,19 @@
                                   </div>
 
                                   <div class="form-group m-form__group row">
-                                    <div class="col-sm-9 col-md-10 col-lg-10">
+                                    <div class="col-12 col-sm-9 col-md-10 col-lg-10">
                                       <label>
                                          * Logradouro:
                                       </label>
-                                      <input type="text" name="logradouro" id="logradouro" class="form-control m-input" placeholder="" value="">
+                                      <input autocomplete="street-address" type="text" name="logradouro" id="logradouro" class="form-control m-input" placeholder="" value="">
                                       <span class="m-form__help">                                      
                                       </span>
                                     </div>
-                                    <div class="col-sm-3 col-md-2 col-lg-2">
+                                    <div class="col-6 col-sm-3 col-md-2 col-lg-2">
                                       <label>
                                         * número:
                                       </label>
-                                      <input type="text" name="numero" id="numero" class="form-control m-input" placeholder="" value="">
+                                      <input autocomplete="address-line1" type="number" name="numero" id="numero" class="form-control m-input" placeholder="" value="">
                                       <span class="m-form__help">   
                                       </span>                                   
                                     </div>
@@ -328,7 +324,7 @@
                                       <label>
                                          Bairro:
                                       </label>
-                                      <input type="text" name="bairro" id="bairro" class="form-control m-input" placeholder="" value="">
+                                      <input autocomplete="address-line2" type="text" name="bairro" id="bairro" class="form-control m-input" placeholder="" value="">
                                       <span class="m-form__help">                                      
                                       </span>
                                     </div>
@@ -336,7 +332,7 @@
                                       <label>
                                         complemento:
                                       </label>
-                                      <input type="text" name="complemento" id="complemento" class="form-control m-input" placeholder="" value="">
+                                      <input autocomplete="address-line3" type="text" name="complemento" id="complemento" class="form-control m-input" placeholder="" value="">
                                       <span class="m-form__help">   
                                       </span>                                   
                                     </div>
@@ -408,7 +404,7 @@
                                       <label>
                                           Inscrição Municipal
                                       </label>
-                                      <input  type="text" name="im" id="im" class="form-control"  placeholder=""/>
+                                      <input autocomplete="off" type="text" name="im" id="im" class="form-control m-input"/>
                                       <span class="m-form__help">
                                         Obrigatório na compra de serviços <i data-toggle="m-tooltip" data-width="auto" class="m-form__heading-help-icon flaticon-info form-help" title="e!Cockpit ou treinamentos WAGO"></i>
                                       </span>
@@ -417,7 +413,7 @@
                                       <label class="">
                                           Código Suframa:
                                       </label>
-                                      <input  type="text" name="suframa" id="suframa" class="form-control m-input"  placeholder="" value="">
+                                      <input autocomplete="off" type="text" name="suframa" id="suframa" class="form-control m-input">
                                       <span class="m-form__help">
                                         caso possua, inclua o cod. SUFRAMA de sua empresa
                                       </span>                                 
@@ -429,7 +425,7 @@
                                       <label>
                                           Email para XML:
                                       </label>
-                                      <input  type="emailXML" name="emailXML" id="emailXML" class="form-control m-input"  placeholder="" value="">
+                                      <input autocomplete="email" type="email" name="emailXML" id="emailXML" class="form-control m-input"  placeholder="" value="">
                                       <span class="m-form__help">
                                         vamos enviar o XMLs e DANFEs nesse email!
                                       </span>                                 
@@ -513,7 +509,7 @@
                                       <label>
                                           * Nome:
                                       </label>
-                                      <input type="text" name="nomeFinanceiro" id="nomeFinanceiro" class="form-control m-input">
+                                      <input autocomplete="name" type="text" name="nomeFinanceiro" id="nomeFinanceiro" class="form-control m-input">
                                       <span class="m-form__help">
                                        Insira nome de um contato no financeiro
                                       </span>
@@ -528,7 +524,7 @@
                                             <i class="la la-phone"></i>
                                           </span>
                                         </div>
-                                        <input type="text" name="telFinanceiro" id="telFinanceiro" class="form-control m-input" placeholder="" value="">
+                                        <input autocomplete="tel-national" type="tel" name="telFinanceiro" id="telFinanceiro" class="form-control m-input" placeholder="" value="">
                                       </div>
                                       <span class="m-form__help">
                                         Insira telefone de um contato no financeiro
@@ -541,7 +537,7 @@
                                       <label>
                                           * Email:
                                       </label>
-                                      <input type="email" name="emailFinanceiro" id="emailFinanceiro" class="form-control m-input" placeholder="" value="">
+                                      <input autocomplete="email" type="email" name="emailFinanceiro" id="emailFinanceiro" class="form-control m-input" placeholder="" value="">
                                       <span class="m-form__help">
                                        Insira email de um contato no financeiro
                                       </span>
