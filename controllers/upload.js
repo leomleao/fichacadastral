@@ -137,7 +137,7 @@ exports.form = (req, res) => {
 			if (result){					
 				return res.status(200).send(JSON.stringify({
 							'status' : 'success',
-							'message' : 'Sua ficha cadastral foi enviada com sucesso!<br><a href="' + result + '">Baixar</a>'
+							'message' : 'Sua ficha cadastral foi enviada com sucesso!<br>Caso queira salvar uma cópia, segue link: <a href="' + result + '">Baixar</a>'
 				}));
 			} else {
 				return res.status(200).send(JSON.stringify({
@@ -152,24 +152,24 @@ exports.form = (req, res) => {
 			if (error.message === 'duplicateForm'){
 				return res.status(200).send(JSON.stringify({
 						    'status' : 'success',
-						    'message' : 'Ja recebemos seu formulario. Agora e so aguardar!'
+						    'message' : 'Já recebemos seu formulário. Agora é só aguardar!'
 				}));
 			} else 	if (error.message === 'duplicateCompany'){
 				return res.status(400).send(JSON.stringify({
 						    'status' : 'error',
-						    'message' : 'Notamos que ja existe um formulario pendente de sua empresa conosco :). Caso esse seja uma atualizacao cadastral confirme o envio clicando no botao abaixo:<br><a href="' + fullUrl + '/release/' + uuid + '">Confirmar Atualiacao</a>'
+						    'message' : 'Notamos que já existe um formulário pendente de sua empresa conosco :). Caso esse seja uma atualização cadastral confirme o envio clicando no botao abaixo:<br><a href="' + fullUrl + '/release/' + uuid + '">Confirmar Atualiacao</a>'
 				}));
 			}else 	if (error.message === 'formError'){
 				return res.status(500).send(JSON.stringify({
 						    'status' : 'error',
-						    'message' : 'Houve alguum problema na criacao desse formulário. Por favor, nos contate via email: adm.br@wago.com'
+						    'message' : 'Houve algum problema na criacao desse formulário. Por favor, nos contate via email: adm.br@wago.com'
 				}));
 			} else 	if (error.message === 'gCloudError'){
 				console.error(error); 
 			} else {
 				return res.status(500).send(JSON.stringify({
 						    'status' : 'error',
-						    'message' : 'Houve alguum problema no envio desse formulário. Por favor, nos contate via email: adm.br@wago.com',
+						    'message' : 'Houve algum problema no envio desse formulário. Por favor, nos contate via email: adm.br@wago.com',
 						    'errorMessage': error
 				}));
 			}
