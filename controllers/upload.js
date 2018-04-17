@@ -110,6 +110,7 @@ exports.form = (req, res) => {
 	
 	const company    = sequelize.import(path.join(__dirname, '../models/company'));
 	const companySec = sequelize.import(path.join(__dirname, '../models/company'));
+	const file       = sequelize.import(path.join(__dirname, '../models/file'));
 
 	var data = req.body;
 
