@@ -430,10 +430,10 @@ var WizardDemo = function () {
             } else if ( $( "#rev-" + key ).length ) { 
                 $( "#rev-" + key ).text(data[key]);             
             }
-        });
+        })
     }
 
-    function populateDataObj(data, callback = false) {  
+    function populateDataObj(data, callback) {  
 
         if(isArray(data)){
             for (var i = form.length - 1; i >= 0; i--) {

@@ -4,8 +4,6 @@
   <% include ../partials/header.ejs %>
 </head>
 
-<body>
-
 <body class="m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default"  >
     <!-- begin:: Page -->
     <div class="m-grid m-grid--hor m-grid--root m-page">
@@ -21,7 +19,7 @@
               <div class="mr-auto">
                 <div class="m-stack__item m-stack__item--middle m-brand__logo">
                   <a href="../../../index.html" class="m-brand__logo-wrapper">
-                    <img alt="" src="/logo.png" width="200px" length="80px" />
+                    <img alt="" src="/logo.png" width="200" length="80" />
                   </a>
                 </div>               
               </div>
@@ -56,14 +54,14 @@
                     </div>
                   </div>
                   <!--end: Portlet Head-->
-      <!--begin: Form Wizard-->
+                  <!--begin: Form Wizard-->
                   <div class="m-wizard m-wizard--1 m-wizard--success" id="m_wizard">
                     <!--begin: Message container -->
                     <div class="m-portlet__padding-x">
                       <!-- Here you can put a message or alert -->
                     </div>
                     <!--end: Message container -->
-        <!--begin: Form Wizard Head -->
+                    <!--begin: Form Wizard Head -->
                     <div class="m-wizard__head m-portlet__padding-x">
                       <!--begin: Form Wizard Progress -->
                       <div class="m-wizard__progress">
@@ -72,7 +70,7 @@
                         </div>
                       </div>
                       <!--end: Form Wizard Progress -->
-          <!--begin: Form Wizard Nav -->
+                      <!--begin: Form Wizard Nav -->
                       <div class="m-wizard__nav">
                         <div class="m-wizard__steps">
                           <div class="m-wizard__step m-wizard__step--current" data-wizard-target="#m_wizard_form_step_1">
@@ -114,7 +112,7 @@
                       <!--end: Form Wizard Nav -->
                     </div>
                     <!--end: Form Wizard Head -->
-        <!--begin: Form Wizard Form-->
+                    <!--begin: Form Wizard Form-->
                     <div class="m-wizard__form">
                       <form class="m-form m-form--label-align-left- m-form--state-" id="m_form">
                         <input  type="text" name="uuid" id="uuid" value="<%= uuid %>" hidden/>
@@ -388,7 +386,7 @@
                                             <span></span>
                                           </label>
                                           <label class="m-radio m-radio--solid m-radio--brand">
-                                            <input type="radio" name="icms" checked="true" value="0" disabled>
+                                            <input type="radio" name="icms" checked value="0" disabled>
                                              NÃO
                                             <span></span>
                                           </label>
@@ -559,7 +557,7 @@
                                 <div class="m-accordion m-accordion--default" id="m_accordion_1" role="tablist">
                                   <!--begin::Item-->
                                   <div class="m-accordion__item active">                                    
-                                    <div class="m-accordion__item-body collapse show" id="m_accordion_1_item_1_body" class=" " role="tabpanel" aria-labelledby="m_accordion_1_item_1_head" data-parent="#m_accordion_1">
+                                    <div class="m-accordion__item-body collapse show" id="m_accordion_1_item_1_body" role="tabpanel" aria-labelledby="m_accordion_1_item_1_head" data-parent="#m_accordion_1">
                                       <!--begin::Content-->
                                       <div class="tab-content  m--padding-30">
                                         <div class="m-form__section m-form__section--first">
@@ -840,6 +838,7 @@
 
                                         </div>
                                       <!--end::Content-->
+                                      </div>
                                     </div>
                                   </div>
                                   <!--end::Item-->
@@ -860,10 +859,10 @@
                               </div>
                             </div>
                           </div>
-                          <!--end: Form Wizard Step 4-->
+                          <!--end: Form Wizard Step 2-->
                         </div>
                         <!--end: Form Body -->
-            <!--begin: Form Actions -->
+                        <!--begin: Form Actions -->
                         <div class="m-portlet__foot m-portlet__foot--fit m--margin-top-40">
                           <div class="m-form__actions m-form__actions">
                             <div class="row">
@@ -892,7 +891,7 @@
                                 <a href="#" class="btn btn-primary m-btn m-btn--custom m-btn--icon" data-wizard-action="next">
                                   <span>
                                     <span>
-                                      Salvar & Continuar
+                                      Salvar &amp; Continuar
                                     </span>
                                     &nbsp;&nbsp;
                                     <i class="la la-arrow-right"></i>
@@ -911,66 +910,12 @@
                   <!--end: Form Wizard-->
                 </div>
                 <!--End::Main Portlet-->
-              </div>
-              
+              </div>              
             </div>
           </div>
         </div>
       </div>
-      <!-- end:: Body -->
-<!-- begin::Footer
-      <footer class="m-grid__item   m-footer ">
-        <div class="m-container m-container--fluid m-container--full-height m-page__container">
-          <div class="m-stack m-stack--flex-tablet-and-mobile m-stack--ver m-stack--desktop">
-            <div class="m-stack__item m-stack__item--left m-stack__item--middle m-stack__item--last">
-              <span class="m-footer__copyright">
-                2017 &copy; Metronic theme by
-                <a href="https://keenthemes.com" class="m-link">
-                  Keenthemes
-                </a>
-              </span>
-            </div>
-            <div class="m-stack__item m-stack__item--right m-stack__item--middle m-stack__item--first">
-              <ul class="m-footer__nav m-nav m-nav--inline m--pull-right">
-                <li class="m-nav__item">
-                  <a href="#" class="m-nav__link">
-                    <span class="m-nav__link-text">
-                      About
-                    </span>
-                  </a>
-                </li>
-                <li class="m-nav__item">
-                  <a href="#"  class="m-nav__link">
-                    <span class="m-nav__link-text">
-                      Privacy
-                    </span>
-                  </a>
-                </li>
-                <li class="m-nav__item">
-                  <a href="#" class="m-nav__link">
-                    <span class="m-nav__link-text">
-                      T&C
-                    </span>
-                  </a>
-                </li>
-                <li class="m-nav__item">
-                  <a href="#" class="m-nav__link">
-                    <span class="m-nav__link-text">
-                      Purchase
-                    </span>
-                  </a>
-                </li>
-                <li class="m-nav__item m-nav__item">
-                  <a href="#" class="m-nav__link" data-toggle="m-tooltip" title="Support Center" data-placement="left">
-                    <i class="m-nav__link-icon flaticon-info m--icon-font-size-lg3"></i>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </footer>
-      end::Footer -->
+      <!-- end:: Body -->    
     </div>
     <!-- end:: Page -->  
 
