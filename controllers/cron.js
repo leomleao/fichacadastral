@@ -187,17 +187,17 @@ exports.email = (req, res) => {
 			.then((files) => {
 				console.info('Start of list - Files about to be downloaded:');
 				var downloadQueue = [];
-				var files = [];
 
 				for (var i = files.length - 1; i >= 0; i--) {
 					console.info(files[i].dataValues.filename);
-					files.push(files[i].dataValues.filename);
 					downloadQueue.push(downloadFile(files[i].dataValues.filename));
 				}
-				console.info('End of list - Files about to be downloaded.')				
+
+				console.info('End of list - Files about to be downloaded.');
+							
 				Promise.all(downloadQueue)
-					.then(() => {
-						resolve(files);		
+					.then((filesDownloaded) => {
+						resolve(filesDownloaded);		
 					})
 					.catch(err => {
 						console.error(err);
@@ -235,7 +235,7 @@ exports.email = (req, res) => {
 						var msg = {
 						  to: mailRecipients,
 						  from: 'cadastro@identificacaowago.com.br',
-						  subject: 'Ficha cadastral do cliente ' + req.body.cnpj,
+						  subject: 'Ficha cadastral do cliente ' + data.nome ,
 						  html: html,
 						  reply_to: {
 						  	email: 'adm.br@wago.com'
@@ -269,6 +269,9 @@ exports.email = (req, res) => {
 						console.error("ERROR: " + err);
 					});
 				})
+				.catch(err =>{
+					console.error("ERROR: " + err);
+				});
 		});  		  
 	}
 
@@ -321,8 +324,6 @@ exports.email = (req, res) => {
 
 
 		});
-
-
 
 		return new Buffer(file).toString('base64');
 	}

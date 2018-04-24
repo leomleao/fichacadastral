@@ -195,7 +195,7 @@ exports.form = (req, res) => {
 					  		file
 						  		.findOrCreate({
 						  			where: {
-						  				uuid: formData.uuid
+						  				uuid: formData.uuid + '_#_ficha-cadastral.pdf'
 						  			},
 						  			defaults: {
 						  				filename: filename
