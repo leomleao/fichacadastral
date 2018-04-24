@@ -11,7 +11,7 @@ const Storage    = require('@google-cloud/storage');
 const storage    = new Storage();
 
 // The name the bucket
-const bucketName = 'olympus-db';
+const bucketName = 'omega-zeta.appspot.com';
 
 // using SendGrid's v3 Node.js Library
 // https://github.com/sendgrid/sendgrid-nodejs
