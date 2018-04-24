@@ -35,7 +35,7 @@ const Storage = require('@google-cloud/storage');
 const storage = new Storage();
 
 // The name the bucket
-const bucketName = 'olympus-db';
+const bucketName = 'omega-zeta.appspot.com';
 
 
 /**
@@ -244,7 +244,6 @@ exports.form = (req, res) => {
 			    company.update({
 					pdfCreated: formData.uuid + '_#_ficha-cadastral.pdf'
 				}).then(() => {
-					sequelize.close();
 					resolve(destinationPDF);
 				})	    
 
