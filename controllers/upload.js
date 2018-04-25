@@ -195,12 +195,11 @@ exports.form = (req, res) => {
 					  		file
 						  		.findOrCreate({
 						  			where: {
-						  				uuid: formData.uuid + '_#_ficha-cadastral.pdf'
+						  				filename: filename
 						  			},
 						  			defaults: {
 						  				filename: filename
-						  			}		  				
-						  			
+						  			} 
 						  		})
 						  		.then(() => {
 							   		console.log(`gs://${bucketName}/${filename} is now public.`);
