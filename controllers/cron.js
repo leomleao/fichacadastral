@@ -299,7 +299,7 @@ exports.email = (req, res) => {
 		return new Promise((resolve) => {
 			var base64File = new Buffer(readFile).toString('base64');
 			// resolve(base64File)
-			resolve({content: base64File, filename: .split("_#_").pop();});
+			resolve({content: base64File, filename: file.split("_#_").pop()});
 		});
 	}
 
